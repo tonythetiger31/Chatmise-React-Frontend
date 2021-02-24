@@ -2,26 +2,17 @@ import React from 'react'
 export default class TextsUi extends React.Component {
    constructor(props) {
       super()
-      this.state = {
-         messages: props.data
-      }
       this.textInput = React.createRef()
       this.messageView = React.createRef()
-      this.appendNewMessage = this.appendNewMessage.bind(this)
    }
-   appendNewMessage() {
+   handleNewMessage(){
       const params = { text: this.textInput.current.value }
-      this.setState((prevState) => {
-         const updated = prevState.messages.concat([params])
-         return {
-            messages: updated
-         }
-      })
+      this.props.action(params)
       this.textInput.current.value = ""
    }
    enterKeyEvent(event) {
       if (event.keyCode == 13) {
-         this.appendNewMessage();
+         this.handleNewMessage();
          event.preventDefault();
       };
    }
@@ -32,13 +23,14 @@ export default class TextsUi extends React.Component {
       this.messageView.current.lastChild.scrollIntoView();
    }
    render() {
-      const mapedTexts = this.state.messages.map((element, i) => {
+      const mapedTexts = this.props.data.map((element, i) => {
          return (
             <div className="individualMessage" key={i} >{element.text}</div>
          )
       })
-   return(
-         <div className = "TextsUi" >
+      return (
+         console.log("render"),
+         <div className="TextsUi" >
             <div className="messagesView" ref={this.messageView}>
                {mapedTexts}
             </div>
