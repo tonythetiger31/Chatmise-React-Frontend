@@ -1,0 +1,114 @@
+:root {
+   --bodyColor: rgb(20, 20, 20);
+   --textColor: white;
+   --topBarColor: rgb(30, 30, 30);
+   --hamburgerColor: brightness(100%);
+   --textareaColor: rgb(20, 20, 20);
+   --buttonColor: rgb(20, 20, 20);
+   --textareaAbuttonTextColor: white;
+   --yellowColor: rgb(196, 199, 0);
+   --greenColor: #52fb9e;
+   --blueColor: #63caec;
+   --lineColor: white;
+}
+html {
+   overflow: visible;
+}
+body {
+   background-color: var(--bodyColor);
+   margin: 0;
+}
+.MainUi {
+   height: 100vh;
+   width: 100vw;
+   display: flex;
+   .ChatMenu {
+      height: 100%;
+      width: 20%;
+      overflow: auto;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 30px;
+      color: var(--textColor);
+      text-align: center;
+      border-width: 0;
+      border: solid var(--lineColor);
+      background-color: var(--topBarColor);
+      border-width: 0;
+      .individualChat {
+         padding: 2px;
+         cursor: pointer;
+      }
+      .individualChat:hover {
+         background-color: var(--bodyColor);
+      }
+   }
+   .TextsUi {
+      height: 100%;
+      width: 80%;
+      .messagesView {
+         scroll-behavior: smooth;
+         overflow-x: hidden;
+         overflow-y: auto;
+         position: static;
+         margin: 0;
+         height: 93%;
+         width: 100%;
+         .individualMessage {
+            position: static;
+            word-wrap: break-word;
+            padding: 15px 40px 15px 40px;
+            margin: 0;
+            border: solid;
+            border-width: 0 0 1px 0;
+            border-radius: 8px;
+            border-color: var(--lineColor) !important;
+            color: var(--greenColor);
+            text-align: left;
+            font-size: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+         }
+      }
+      .messageInputs {
+         background-color: var(--bodyColor);
+         bottom: 0;
+         right: 0;
+         left: 0;
+         display: flex;
+         position: static;
+         font-size: 30px;
+         height: 7%;
+         margin: 0;
+         z-index: 0;
+         textarea {
+            outline: none;
+            color: var(--textareaAbuttonTextColor);
+            background-color: var(--textareaColor);
+            display: inline-block;
+            margin: 0;
+            height: 100%;
+            width: 90%;
+            position: static;
+            font-size: 30px;
+            resize: none;
+            padding: 0px 2px 0px 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            border: none;
+         }
+         button {
+            outline: none;
+            color: var(--textareaAbuttonTextColor);
+            background-color: var(--buttonColor);
+            display: inline-block;
+            margin: 0;
+            height: 100%;
+            width: 10%;
+            position: static;
+            font-size: 30px;
+            line-height: 1em;
+            font-family: Arial, Helvetica, sans-serif;
+            border: none;
+            cursor: pointer;
+         }
+      }
+   }
+}
