@@ -1,6 +1,8 @@
 import React from 'react'
+import socketIoClient from "socket.io-client"
 import TextsUi from './TextsUi.js'
 import ChatMenu from './ChatMenu.js'
+import TopBar from './TopBar.js'
 import data from '../data.js'
 export default class MainUi extends React.Component {
    constructor() {
@@ -33,11 +35,34 @@ export default class MainUi extends React.Component {
          }
       })
    }
+    componentDidMount(){
+      var socket = socketIoClient('/')
+      socket.on('allTexts', (body) => {
+         console.log(body)
+         this.setState((_)=>{
+            return{
+               chats: body.collections,
+               texts: body.data
+            }
+         })
+      })
+   }
    render() {
       return (
          <div className="MainUi">
-            <ChatMenu action={(arg) => { this.changeCurrentChat(arg) }} data={this.state.chats} />
-            <TextsUi action={(arg) => { this.addNewMessageToState(arg) }} data={this.state.texts[this.state.currentChat]} />
+            <ChatMenu
+               action={(arg) => { this.changeCurrentChat(arg) }}
+               data={this.state.chats}
+            />
+            <div className="textsUiAndTopBarContainer">
+               <TopBar
+                  data={this.state.chats[this.state.currentChat]}
+               />
+               <TextsUi
+                  action={(arg) => { this.addNewMessageToState(arg) }}
+                  data={this.state.texts[this.state.currentChat]}
+               />
+            </div>
          </div>
       )
    }
