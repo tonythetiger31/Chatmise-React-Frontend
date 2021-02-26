@@ -2,15 +2,8 @@ import React from 'react'
 import TextsUi from './TextsUi.js'
 import ChatMenu from './ChatMenu.js'
 import TopBar from './TopBar.js'
-import { io } from "socket.io-client"
+import { io } from 'socket.io-client'
 
-var URL = "/"
-if (process.env.NODE_ENV === "development") {
-URL = "localhost:80/"
-}
-var socket = io(URL, {
-   withCredentials: true
-})
 export default class MainUi extends React.Component {
    constructor() {
       super()
@@ -22,37 +15,53 @@ export default class MainUi extends React.Component {
          }],],
          chats: ["Loading..."],
          currentChat: 0,
-         user: "Loading"
+         username: "Loading"
       }
       this.changeCurrentChat = this.changeCurrentChat.bind(this)
-      this.addNewMessageToState = this.addNewMessageToState.bind(this)
-   }
-   componentDidMount() {
-      socket.on('allTexts', (body) => {
-         if (body !== "invalid credentials") {
-            this.setState((_) => {
-               return {
-                  chats: body.collections,
-                  texts: body.data,
-                  user: body.username
-               }
-            })
-         } else {
-            console.log("ERR Credentials Invalid")
-         }
-      })
+      this.displayMessage = this.displayMessage.bind(this)
    }
    changeCurrentChat(arg) {
       this.setState({
          currentChat: arg
       })
    }
-   addNewMessageToState(arg) {
+   componentDidMount() {
+      var connectToWebSocket = (() => {
+         var URL = "/"
+         if (process.env.NODE_ENV === "development") {
+            URL = "localhost:80/"
+         }
+         this.socket = io(URL, {
+            withCredentials: true
+         })
+      })()
+      this.socket.on('allTexts', (body) => {
+         if (body !== "invalid credentials") {
+            this.setState((_) => {
+               return {
+                  chats: body.collections,
+                  texts: body.data,
+                  username: body.username
+               }
+            })
+         } else {
+            console.log("ERR Credentials Invalid")
+         }
+      })
+      this.socket.on('text', (body) => {
+         this.displayMessage(body)
+      })
+   }
+   displayMessage(message) {
       this.setState((prevState) => {
+         var chatToAddTo = this.state.currentChat
+         if (message.chat) {
+            chatToAddTo = prevState.chats.indexOf(message.chat)
+         }
          var newTexts = prevState.texts.map((element, i) => {
             var result = element
-            if (i === this.state.currentChat) {
-               result = element.concat([arg])
+            if (i === chatToAddTo) {
+               result = element.concat([message])
             }
             return result
          })
@@ -60,9 +69,12 @@ export default class MainUi extends React.Component {
             texts: newTexts
          }
       })
-      socket.emit('texts', {
-         text: arg.text,
-         time: 1612501270210,
+   }
+   sendAndDisplayMessage(message) {
+      this.displayMessage(message)
+      this.socket.emit('texts', {
+         text: message.text,
+         time: message.time,
          chat: this.state.chats[this.state.currentChat]
       })
    }
@@ -78,9 +90,9 @@ export default class MainUi extends React.Component {
                   data={this.state.chats[this.state.currentChat]}
                />
                <TextsUi
-                  action={(arg) => { this.addNewMessageToState(arg) }}
+                  action={(arg) => { this.sendAndDisplayMessage(arg) }}
                   data={this.state.texts[this.state.currentChat]}
-                  username={this.state.user}
+                  username={this.state.username}
                />
             </div>
          </div>

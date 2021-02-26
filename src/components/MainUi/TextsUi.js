@@ -12,7 +12,11 @@ export default class TextsUi extends React.Component {
          this.scrollBehavior = {
             scrollBehavior: "smooth"
          }
-         var params = { text: this.textInput.current.value }
+         var params = { 
+            text: this.textInput.current.value,
+            sender: this.props.username,
+            time: new Date().getTime()
+         }
          this.props.action(params)
          this.textInput.current.value = ""
          this.textInput.current.placeholder = "type a message here"
@@ -45,7 +49,10 @@ export default class TextsUi extends React.Component {
             hoursNon24 = thisDate.getHours() - 12
          } else {
             pmOrAm = 'AM'
-            hoursNon24 = thisDate.getHours()
+            hoursNon24 = thisDate.getHours() 
+            if (hoursNon24 === 0){
+               hoursNon24 = 12
+            }
          }
          if (thisDate.getMinutes() <= 9) {
             minutesWithOrWithoutZero = '0'
