@@ -2,6 +2,7 @@ import React from 'react'
 import TextsUi from './TextsUi.js'
 import ChatMenu from './ChatMenu.js'
 import TopBar from './TopBar.js'
+import HamburgerMenu from './HamburgerMenu.js'
 import { io } from 'socket.io-client'
 
 export default class MainUi extends React.Component {
@@ -15,8 +16,10 @@ export default class MainUi extends React.Component {
          }],],
          chats: ["Loading..."],
          currentChat: 0,
-         username: "Loading"
+         username: "Loading",
+         hamburgerMenuStyle: { display: "none" }
       }
+      this.HamburgerMenu = React.createRef()
       this.changeCurrentChat = this.changeCurrentChat.bind(this)
       this.displayMessage = this.displayMessage.bind(this)
    }
@@ -78,6 +81,18 @@ export default class MainUi extends React.Component {
          chat: this.state.chats[this.state.currentChat]
       })
    }
+   toggleHamburgerMenu = () => {
+      console.log('oof')
+      this.setState((prevState) => {
+         var style = { display: "none" }
+         if (prevState.hamburgerMenuStyle.display === "none") {
+            style = { display: "block" }
+         }
+         return {
+            hamburgerMenuStyle: style
+         }
+      })
+   }
    render() {
       return (
          <div className="MainUi">
@@ -88,6 +103,12 @@ export default class MainUi extends React.Component {
             <div className="textsUiAndTopBarContainer">
                <TopBar
                   data={this.state.chats[this.state.currentChat]}
+                  action={() => { this.toggleHamburgerMenu() }}
+               />
+               <HamburgerMenu
+                  ref={this.HamburgerMenu}
+                  username={this.state.username}
+                  style={this.state.hamburgerMenuStyle}
                />
                <TextsUi
                   action={(arg) => { this.sendAndDisplayMessage(arg) }}
@@ -95,6 +116,7 @@ export default class MainUi extends React.Component {
                   username={this.state.username}
                />
             </div>
+
          </div>
       )
    }

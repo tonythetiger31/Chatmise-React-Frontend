@@ -7,6 +7,7 @@ export default class TopBar extends React.Component{
       return(
          <div className="TopBar">
             <div>{this.props.data}</div>
+            <a type="button" onClick={()=>{this.props.action()}}  />
          </div>
       )
    }

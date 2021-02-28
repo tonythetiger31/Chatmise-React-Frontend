@@ -18,6 +18,54 @@ body {
    background-color: var(--bodyColor);
    margin: 0;
 }
+
+.HamburgerMenu {
+   background-color: var(--bodyColor);
+   display: none;
+   position: absolute;
+   top: 50px;
+   right: 0;
+   text-align: center;
+   padding: 50px;
+   .youAreLoggedInAs{
+      margin:20px 0 20px 0;
+      color: var(--yellowColor);
+      font-size: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+   }
+   button{
+      text-decoration: none;
+      color: black;
+      margin: 10px 0 10px 0;
+      text-align: center;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      font-size: 30px;
+      cursor: pointer;
+      transition: all .2s cubic-bezier(0.230, 1.650, 0.380, 1.650);
+      border:none;
+      border-radius: 5px;
+      padding: 3px 5px 3px 5px;
+      background-color: var(--greenColor);
+      font-family: Arial, Helvetica, sans-serif;
+      width: 200px;
+      &:hover{
+         background-color: #36a568;
+         margin: 3px 0 3px 0;
+         padding: 10px;
+         color:white;
+      }
+   }
+   .homeLink{
+         text-align: center;
+         display: block;
+         color: white;
+         font-family: Arial, Helvetica, sans-serif;
+         font-size: 20px;
+         margin: 10px 0 0 0;
+     
+   }
+}
 .MainUi {
    height: 100vh;
    width: 100vw;
@@ -39,9 +87,9 @@ body {
          padding: 2px;
          cursor: pointer;
          user-select: none;
-      }
-      .individualChat:hover {
-         background-color: var(--bodyColor);
+         &:hover {
+            background-color: var(--bodyColor);
+         }
       }
    }
 
@@ -51,15 +99,24 @@ body {
       display: block;
 
       .TopBar {
-         overflow: hidden;
-         height: 40px;
+         height: 50px;
          width: 100%;
          color: var(--textColor);
          background-color: var(--topBarColor);
          font-family: Arial, Helvetica, sans-serif;
          text-align: center;
          div {
+            user-select: none;
+            display: inline;
             font-size: 40px;
+         }
+         a{
+            user-select: none;
+            float: right;
+            cursor: pointer;
+            content:url("../resources/hamburger.svg");
+            height: 50px;
+            width: 50px;
          }
       }
 

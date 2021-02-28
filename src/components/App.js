@@ -1,13 +1,13 @@
-import MainUi from './MainUi/MainUi'
+import MainUi from './MainUi/MainUi.js'
 import './App.scss'
 function App() {
-  return (
-    <div>
-      <MainUi />
-      
-       {/* 
-       <Settings /> 
-       <HamburgerMenu/>
+   return (
+      <div>
+         <MainUi />
+         {/* 
+       <HamburgerMenu
+         <Settings /> 
+       />
        <PopUpAlerts />
        <MainUi 
          <TopBar />
@@ -15,8 +15,8 @@ function App() {
          <Texts />
        />
        */}
-    </div>
-  );
+      </div>
+   );
 }
 
 export default App;
