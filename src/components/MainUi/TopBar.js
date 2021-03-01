@@ -21,7 +21,7 @@ export default class TopBar extends React.Component {
             <div>{this.props.data}</div>
             <a
                type="button"
-               onClick={() => { this.props.action() }}
+               onClick={() => { this.props.toggleHamburgerMenu() }}
                style={this.style}
             />
          </div>

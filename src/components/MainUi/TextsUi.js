@@ -17,7 +17,7 @@ export default class TextsUi extends React.Component {
             sender: this.props.username,
             time: new Date().getTime()
          }
-         this.props.action(params)
+         this.props.sendAndDisplayMessage(params)
          this.textInput.current.value = ""
          this.textInput.current.placeholder = "type a message here"
 

@@ -8,7 +8,7 @@ export default class ChatMenu extends React.Component {
          return (
             <div
                className="individualChat"
-               onClick={() => { this.props.action(i) }}
+               onClick={() => { this.props.changeCurrentChat(i) }}
                key={i}
             >
                {element}
