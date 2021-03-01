@@ -82,7 +82,6 @@ export default class MainUi extends React.Component {
       })
    }
    toggleHamburgerMenu = () => {
-      console.log('oof')
       this.setState((prevState) => {
          var style = { display: "none" }
          if (prevState.hamburgerMenuStyle.display === "none") {
@@ -102,6 +101,7 @@ export default class MainUi extends React.Component {
             />
             <div className="textsUiAndTopBarContainer">
                <TopBar
+                  hamburgerMenuStyle={this.state.hamburgerMenuStyle}
                   data={this.state.chats[this.state.currentChat]}
                   action={() => { this.toggleHamburgerMenu() }}
                />
