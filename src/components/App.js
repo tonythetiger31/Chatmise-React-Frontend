@@ -7,7 +7,7 @@ import Settings from './mainUi/Settings.js'
 import css from './App.scss'
 import { io } from 'socket.io-client'
 import themes from './themes.js'
-
+import ping from '../resources/ping.mp3'
 
 export default class MainUi extends React.Component {
    constructor() {
@@ -23,6 +23,8 @@ export default class MainUi extends React.Component {
          username: "Loading",
          hamburgerMenuStyle: { display: "none" },
          settingsStyle: { display: "none" },
+         internetWarningPopUpStyle: {display:"none"},
+         grayBackgroundStyle: {display:"none"},
          theme: 0
       }
       this.URL = (() => {
@@ -34,6 +36,7 @@ export default class MainUi extends React.Component {
       })()
       this.changeCurrentChat = this.changeCurrentChat.bind(this)
       this.displayMessage = this.displayMessage.bind(this)
+      this.audio = new Audio(ping)
    }
    changeCurrentChat = (arg) => {
       this.setState({
@@ -60,6 +63,18 @@ export default class MainUi extends React.Component {
       })
       this.socket.on('text', (body) => {
          this.displayMessage(body)
+         if (document.visibilityState !== 'visible') {
+            this.audio.play()
+        }
+      })
+      this.socket.on('disconnect', () => {
+         this.setState((_)=>{
+            return{
+               internetWarningPopUpStyle: {display: "block"},
+               grayBackgroundStyle: {display: "block"}
+            }
+         })
+         window.location.reload();
       })
    }
    displayMessage(message) {
@@ -106,14 +121,15 @@ export default class MainUi extends React.Component {
             style = { display: "block" }
          }
          return {
-            settingsStyle: style
+            settingsStyle: style,
+            grayBackgroundStyle: style
          }
       })
    }
    changeTheme = (arg) => {
       try {
          var value = arg.target.value
-         this.socket.emit('settings',{
+         this.socket.emit('settings', {
             settings: value
          })
       } catch (err) {
@@ -134,8 +150,12 @@ export default class MainUi extends React.Component {
       return (
          <div className="mainUi">
             <div
+               className="internetWarningPopUp" 
+               style={this.state.internetWarningPopUpStyle}
+            >Connection error, please check your internet</div>
+            <div
                className="grayBackground"
-               style={this.state.settingsStyle}
+               style={this.state.grayBackgroundStyle}
             />
             <Settings
                style={this.state.settingsStyle}
