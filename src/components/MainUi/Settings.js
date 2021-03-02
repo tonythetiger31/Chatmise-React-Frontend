@@ -16,7 +16,7 @@ export default class HamburgerMenu extends React.Component {
             <a type='button' onClick={() => this.props.toggleSettings()}></a>
             <div className="title">Settings</div>
             <div>Theme</div>
-            <select onChange={this.props.changeTheme}>
+            <select value={this.props.theme} onChange={this.props.changeTheme}>
                {themeOptions}
             </select>
          </div>

@@ -1,5 +1,8 @@
 var themes = [
    {
+      name: 'select'
+   },
+   {
       name: 'black',
       bodyColor: 'rgb(20, 20, 20)',
       contrastingBodyColor: 'rgb(30, 30, 30)',

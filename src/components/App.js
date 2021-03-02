@@ -22,12 +22,13 @@ export default class MainUi extends React.Component {
          currentChat: 0,
          username: "Loading",
          hamburgerMenuStyle: { display: "none" },
-         settingsStyle: { display: "none" }
+         settingsStyle: { display: "none" },
+         theme: 0
       }
-      this.URL = (() =>{
+      this.URL = (() => {
          if (process.env.NODE_ENV === "development") {
             return "localhost:80/"
-         }else{
+         } else {
             return "/"
          }
       })()
@@ -52,6 +53,7 @@ export default class MainUi extends React.Component {
                   username: body.username
                }
             })
+            this.changeTheme(body.settings)
          } else {
             console.log("ERR Credentials Invalid")
          }
@@ -109,8 +111,21 @@ export default class MainUi extends React.Component {
       })
    }
    changeTheme = (arg) => {
-      var keys = Object.keys(themes[arg.target.value]),
-         values = Object.values(themes[arg.target.value])
+      try {
+         var value = arg.target.value
+         this.socket.emit('settings',{
+            settings: value
+         })
+      } catch (err) {
+         var value = arg
+      }
+      var keys = Object.keys(themes[value]),
+         values = Object.values(themes[value])
+      this.setState((_) => {
+         return {
+            theme: value
+         }
+      })
       keys.forEach((element, i) => {
          document.documentElement.style.setProperty(`--${element}`, values[i]);
       })
@@ -126,6 +141,7 @@ export default class MainUi extends React.Component {
                style={this.state.settingsStyle}
                toggleSettings={this.toggleSettings}
                changeTheme={this.changeTheme}
+               theme={this.state.theme}
             />
             <ChatMenu
                changeCurrentChat={(arg) => this.changeCurrentChat(arg)}
