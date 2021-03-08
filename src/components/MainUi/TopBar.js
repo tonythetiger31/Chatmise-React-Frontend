@@ -2,6 +2,7 @@ import React from "react"
 import exitSvg from '../../resources/exit.svg'
 import hamburgerSvg from '../../resources/hamburger.svg'
 
+
 export default class TopBar extends React.Component {
    constructor() {
       super()
@@ -18,8 +19,10 @@ export default class TopBar extends React.Component {
       this.conditionalRender()
       return (
          <div className="TopBar">
+            <a className="chatButton" onClick={()=> this.props.toggleChatMenu()}/>
             <div>{this.props.data}</div>
             <a
+               className="hamburgerButton"
                type="button"
                onClick={() => { this.props.toggleHamburgerMenu() }}
                style={this.style}

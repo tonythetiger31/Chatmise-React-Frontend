@@ -16,6 +16,7 @@ body {
 }
 
 .mainUi {
+
    height: 100vh;
    width: 100vw;
    display: flex;
@@ -135,6 +136,7 @@ body {
       }
    }
    .ChatMenu {
+      display: block;
       height: 100%;
       width: 400px;
       border: solid var(--lineColor);
@@ -145,7 +147,9 @@ body {
       font-size: 30px;
       text-align: center;
       border-width: 0;
-      border-width: 0;
+      .topBar{
+         display: none;
+      }
       .individualChat {
          padding: 2px;
          cursor: pointer;
@@ -173,13 +177,13 @@ body {
             display: inline;
             font-size: 40px;
          }
-         a {
+         .hamburgerButton {
             user-select: none;
             position: absolute;
             right: 0;
             cursor: pointer;
             content: url("../resources/hamburger.svg");
-            height: 50px;
+            height: inherit;
             transition: 0.2s;
             &:hover {
                opacity: 0.8;
@@ -268,6 +272,101 @@ body {
                font-family: Arial, Helvetica, sans-serif;
                border: none;
                cursor: pointer;
+            }
+         }
+      }
+   }
+}
+@media only screen and (max-device-width: 760px){
+   .mainUi{
+      display: block;
+      .Settings{
+         padding: 50px 100px 100px 100px;
+         a{
+            height: 40px;
+         }
+      }
+      .HamburgerMenu{
+         top: 40px;
+         padding: 30px;
+      }
+      .ChatMenu{
+         width: 100%;
+         display: block;
+         .topBar{
+            display: block;
+            font-size: 30px;
+            height: 40px;
+            .exitButton{
+               position: absolute;
+               top: 0;
+               left: 0;
+               height: 40px;
+               content: url('../resources/exit.svg');
+            }
+         }
+         .chats{
+            overflow: auto;
+            height: calc(100% - 40px);
+            .individualChat{
+               border:solid var(--lineColor);
+               border-width: 1px 0 0 0;
+               border-radius: 3px;
+            }
+         }
+      }
+      .rightContainer{
+         width: 100%;
+         display: none;
+         .TopBar{
+            position: fixed;
+            top:0;
+            height: 40px;
+            div{
+               font-size: 30px;
+            }
+            .chatButton{
+               content: url('../resources/chatButton.svg');
+               position: absolute;
+               left: 0;
+            }
+            a{
+               -webkit-tap-highlight-color: transparent;
+               height: inherit;
+            }
+         }
+         .TextsUi{
+            height: 100%;
+            .messagesView{
+               height: calc(100% - 110px);
+               padding-top: 40px;
+               .individualMessage{
+                  padding: 5px 20px 5px 20px;
+                  font-size: 20px;
+                  .info{
+                     line-height: 20px;
+                     .sender{
+                        font-size: 13px;
+                     }
+                     .time{
+                        line-height: 16px;
+                        font-size: 10px;
+                     }
+                  }
+               }
+            }
+            .messageInputs{
+               height: 70px;
+               textarea{
+                  width: 80%;
+                  font-size: 22px;
+               }
+               button{
+                  -webkit-tap-highlight-color: transparent;
+                  outline:none;
+                  width: 20%;
+                  font-size: 22px;
+               }
             }
          }
       }

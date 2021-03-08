@@ -16,8 +16,17 @@ export default class ChatMenu extends React.Component {
          )
       })
       return (
-         <div className="ChatMenu">
-            {mapedChats}
+         <div className="ChatMenu" style={this.props.style}>
+            <div className="topBar">
+               <a
+                  className='exitButton'
+                  onClick={()=> this.props.toggleChatMenu()}
+               />
+               Chats
+            </div>
+            <div className="chats">
+               {mapedChats}
+            </div>
          </div>
       )
    }

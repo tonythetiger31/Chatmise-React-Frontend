@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import TextsUi from './mainUi/TextsUi.js'
 import ChatMenu from './mainUi/ChatMenu.js'
 import TopBar from './mainUi/TopBar.js'
@@ -23,25 +24,33 @@ export default class MainUi extends React.Component {
          username: "Loading",
          hamburgerMenuStyle: { display: "none" },
          settingsStyle: { display: "none" },
-         internetWarningPopUpStyle: {display:"none"},
-         grayBackgroundStyle: {display:"none"},
+         internetWarningPopUpStyle: { display: "none" },
+         grayBackgroundStyle: { display: "none" },
+         chatMenuStyle: { display: "block" },
+         rightContainerStyle: {},
          theme: 0
       }
       this.URL = (() => {
          if (process.env.NODE_ENV === "development") {
-            return "localhost:80/"
+            return "http://192.168.1.206/"
          } else {
             return "/"
          }
       })()
+      this.righContainer = React.createRef()
       this.changeCurrentChat = this.changeCurrentChat.bind(this)
       this.displayMessage = this.displayMessage.bind(this)
       this.audio = new Audio(ping)
    }
    changeCurrentChat = (arg) => {
-      this.setState({
+      var style = {
          currentChat: arg
-      })
+      }
+      if (window.screen.width <= 760) {
+         style.chatMenuStyle = { display: "none" }
+         style.rightContainerStyle = { display: "block" }
+      }
+      this.setState(style)
    }
    componentDidMount() {
       this.socket = io(this.URL, {
@@ -65,13 +74,13 @@ export default class MainUi extends React.Component {
          this.displayMessage(body)
          if (document.visibilityState !== 'visible') {
             this.audio.play()
-        }
+         }
       })
       this.socket.on('disconnect', () => {
-         this.setState((_)=>{
-            return{
-               internetWarningPopUpStyle: {display: "block"},
-               grayBackgroundStyle: {display: "block"}
+         this.setState((_) => {
+            return {
+               internetWarningPopUpStyle: { display: "block" },
+               grayBackgroundStyle: { display: "block" }
             }
          })
          window.location.reload();
@@ -146,11 +155,30 @@ export default class MainUi extends React.Component {
          document.documentElement.style.setProperty(`--${element}`, values[i]);
       })
    }
+   toggleChatMenu = () => {
+
+      this.setState((prevState) => {
+         var style = {
+            chatMenuStyle: { display: "block" },
+            rightContainerStyle: { display: "none" }
+         }
+         if (prevState.chatMenuStyle.display === "block") {
+            style = {
+               chatMenuStyle: { display: "none" },
+               rightContainerStyle: { display: "block" }
+            }
+         }
+         return style
+      })
+
+   }
    render() {
       return (
-         <div className="mainUi">
+         <div className="mainUi"
+            ref={this.righContainer}
+         >
             <div
-               className="internetWarningPopUp" 
+               className="internetWarningPopUp"
                style={this.state.internetWarningPopUpStyle}
             >Connection error, please check your internet</div>
             <div
@@ -166,12 +194,18 @@ export default class MainUi extends React.Component {
             <ChatMenu
                changeCurrentChat={(arg) => this.changeCurrentChat(arg)}
                data={this.state.chats}
+               style={this.state.chatMenuStyle}
+               toggleChatMenu={this.toggleChatMenu}
             />
-            <div className="rightContainer">
+            <div
+               className="rightContainer"
+               style={this.state.rightContainerStyle}
+            >
                <TopBar
                   hamburgerMenuStyle={this.state.hamburgerMenuStyle}
                   data={this.state.chats[this.state.currentChat]}
                   toggleHamburgerMenu={this.toggleHamburgerMenu}
+                  toggleChatMenu={this.toggleChatMenu}
                />
                <HamburgerMenu
                   username={this.state.username}

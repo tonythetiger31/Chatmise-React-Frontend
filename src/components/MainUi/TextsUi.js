@@ -5,14 +5,19 @@ export default class TextsUi extends React.Component {
       super()
       this.textInput = React.createRef()
       this.messageView = React.createRef()
-      this.scrollBehavior = { scrollBehavior: "auto" }
+      this.oldProps = {}
    }
    handleNewMessage() {
-      if (this.textInput.current.value !== "") {
-         this.scrollBehavior = {
-            scrollBehavior: "smooth"
+      const checkIfInputIsEmpty = () => {
+         if (this.textInput.current.value !== "") {
+            sendMessage()
+         } else {
+            this.textInput.current.placeholder = "that was an empty message :("
          }
-         var params = { 
+      }
+      const sendMessage = () => {
+         this.textInput.current.focus()
+         var params = {
             text: this.textInput.current.value,
             sender: this.props.username,
             time: new Date().getTime()
@@ -20,10 +25,8 @@ export default class TextsUi extends React.Component {
          this.props.sendAndDisplayMessage(params)
          this.textInput.current.value = ""
          this.textInput.current.placeholder = "type a message here"
-
-      } else {
-         this.textInput.current.placeholder = "that was an empty message :("
       }
+      checkIfInputIsEmpty()
    }
    enterKeyEvent(event) {
       if (event.keyCode == 13) {
@@ -34,9 +37,22 @@ export default class TextsUi extends React.Component {
    componentDidMount() {
       this.oldProps = this.props.data
       this.messageView.current.lastChild.scrollIntoView();
+      this.textInput.current.focus()
    }
    componentDidUpdate() {
-      this.messageView.current.lastChild.scrollIntoView();
+      if (this.props.data !== this.oldProps &&
+         this.props.data[0] === this.oldProps[0]
+      ) {//newProps
+         console.log('it worked!')
+         this.oldProps = this.props.data
+         if (window.screen.width > 760) {
+            this.messageView.current.lastChild.scrollIntoView({ behavior: "smooth" });
+         } else {
+            this.messageView.current.lastChild.scrollIntoView();
+         }
+      } else {//sameProps
+         this.messageView.current.lastChild.scrollIntoView();
+      }
    }
    render() {
       function getNormalTimeFromUTC(thisDate) {
@@ -49,8 +65,8 @@ export default class TextsUi extends React.Component {
             hoursNon24 = thisDate.getHours() - 12
          } else {
             pmOrAm = 'AM'
-            hoursNon24 = thisDate.getHours() 
-            if (hoursNon24 === 0){
+            hoursNon24 = thisDate.getHours()
+            if (hoursNon24 === 0) {
                hoursNon24 = 12
             }
          }
@@ -66,11 +82,6 @@ export default class TextsUi extends React.Component {
             + ':' + minutesWithOrWithoutZero + thisDate.getMinutes()
             + ' ' + pmOrAm;
          return (output)
-      }
-      if (this.props.data === this.oldProps) {
-         this.scrollBehavior = { scrollBehavior: "auto" }
-      } else {
-         this.oldProps = this.props.data
       }
       const mapedTexts = this.props.data.map((element, i) => {
          var senderName = element.sender
@@ -94,20 +105,25 @@ export default class TextsUi extends React.Component {
             <div
                className="messagesView"
                ref={this.messageView}
-               style={this.scrollBehavior}
             >
                {mapedTexts}
+               <div ref={this.fix} />
             </div>
             <div className="messageInputs">
                <textarea
+                  onFocus={() => {
+                     this.messageView.current.lastChild.scrollIntoView();
+                  }}
+                  maxLength="200"
                   ref={this.textInput}
                   onKeyDown={(event) => { this.enterKeyEvent(event) }}
                   placeholder="type a message here"
                />
                <button onClick={() => { this.handleNewMessage() }}>
-                  Enter
+                  Send
                </button>
             </div>
+
          </div>
       )
    }
