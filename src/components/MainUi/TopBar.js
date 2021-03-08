@@ -18,7 +18,7 @@ export default class TopBar extends React.Component {
    render() {
       this.conditionalRender()
       return (
-         <div className="TopBar">
+         <div className="TopBar" style = {this.props.style}>
             <a className="chatButton" onClick={()=> this.props.toggleChatMenu()}/>
             <div>{this.props.data}</div>
             <a

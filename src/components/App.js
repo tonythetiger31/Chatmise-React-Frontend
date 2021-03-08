@@ -22,13 +22,16 @@ export default class MainUi extends React.Component {
          chats: ["Loading..."],
          currentChat: 0,
          username: "Loading",
+         theme: 0,
+
          hamburgerMenuStyle: { display: "none" },
          settingsStyle: { display: "none" },
          internetWarningPopUpStyle: { display: "none" },
          grayBackgroundStyle: { display: "none" },
          chatMenuStyle: { display: "block" },
          rightContainerStyle: {},
-         theme: 0
+         topBarStyle: {},
+         textUiStyle: {}
       }
       this.URL = (() => {
          if (process.env.NODE_ENV === "development") {
@@ -41,6 +44,7 @@ export default class MainUi extends React.Component {
       this.changeCurrentChat = this.changeCurrentChat.bind(this)
       this.displayMessage = this.displayMessage.bind(this)
       this.audio = new Audio(ping)
+      this.isMobile = window.screen.width <= 760
    }
    changeCurrentChat = (arg) => {
       var style = {
@@ -114,13 +118,32 @@ export default class MainUi extends React.Component {
    }
    toggleHamburgerMenu = () => {
       this.setState((prevState) => {
-         var style = { display: "none" }
-         if (prevState.hamburgerMenuStyle.display === "none") {
-            style = { display: "block" }
+         var block = {display: "block"}
+         var none = {display: "none"}
+         var hamburgerMenuWasClosed = prevState.hamburgerMenuStyle.display === "none"
+         var style = {
+            hamburgerMenuStyle: none,
+            rightContainerStyle: block,
+            chatmenuStyle: block
          }
-         return {
-            hamburgerMenuStyle: style
+         if (this.isMobile) {
+            if (hamburgerMenuWasClosed) {
+               style.textUiStyle = none
+               style.topBarStyle = none
+               style.chatmenuStyle = none
+               style.hamburgerMenuStyle = block
+            }else{
+               style.chatmenuStyle = none
+               style.topBarStyle = block
+               style.textUiStyle = block
+            }
+         } else {
+            if (hamburgerMenuWasClosed){
+               style.hamburgerMenuStyle = block
+            }
          }
+         console.log(style)
+         return style
       })
    }
    toggleSettings = () => {
@@ -156,7 +179,6 @@ export default class MainUi extends React.Component {
       })
    }
    toggleChatMenu = () => {
-
       this.setState((prevState) => {
          var style = {
             chatMenuStyle: { display: "block" },
@@ -202,6 +224,7 @@ export default class MainUi extends React.Component {
                style={this.state.rightContainerStyle}
             >
                <TopBar
+                  style={this.state.topBarStyle}
                   hamburgerMenuStyle={this.state.hamburgerMenuStyle}
                   data={this.state.chats[this.state.currentChat]}
                   toggleHamburgerMenu={this.toggleHamburgerMenu}
@@ -211,8 +234,10 @@ export default class MainUi extends React.Component {
                   username={this.state.username}
                   style={this.state.hamburgerMenuStyle}
                   toggleSettings={this.toggleSettings}
+                  toggleHamburgerMenu={this.toggleHamburgerMenu}
                />
                <TextsUi
+                  style={this.state.textUiStyle}
                   sendAndDisplayMessage={(arg) => this.sendAndDisplayMessage(arg)}
                   data={this.state.texts[this.state.currentChat]}
                   username={this.state.username}

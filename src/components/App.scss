@@ -287,8 +287,16 @@ body {
          }
       }
       .HamburgerMenu{
+         position: static;
+         padding: 50px 0 0 0;
          top: 40px;
-         padding: 30px;
+         .exitButton{
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 40px;
+            content: url('../resources/exit.svg');
+         }
       }
       .ChatMenu{
          width: 100%;

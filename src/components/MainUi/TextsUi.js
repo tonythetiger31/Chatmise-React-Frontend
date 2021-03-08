@@ -101,7 +101,7 @@ export default class TextsUi extends React.Component {
          )
       })
       return (
-         <div className="TextsUi" >
+         <div className="TextsUi" style={this.props.style}>
             <div
                className="messagesView"
                ref={this.messageView}
