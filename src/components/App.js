@@ -35,7 +35,7 @@ export default class MainUi extends React.Component {
       }
       this.URL = (() => {
          if (process.env.NODE_ENV === "development") {
-            return "http://192.168.1.206/"
+            return "http://localhost:8080/"
          } else {
             return "/"
          }
@@ -46,17 +46,12 @@ export default class MainUi extends React.Component {
       this.audio = new Audio(ping)
       this.isMobile = window.screen.width <= 760
    }
-   changeCurrentChat = (arg) => {
-      var style = {
-         currentChat: arg
-      }
-      if (window.screen.width <= 760) {
-         style.chatMenuStyle = { display: "none" }
-         style.rightContainerStyle = { display: "block" }
-      }
-      this.setState(style)
-   }
    componentDidMount() {
+      window.screen.orientation.addEventListener("change", orientation => {
+         if (window.screen.orientation.angle !== 0) {
+            alert("this app works best in portrait mode")
+         }
+      });
       this.socket = io(this.URL, {
          withCredentials: true
       })
@@ -90,6 +85,16 @@ export default class MainUi extends React.Component {
          window.location.reload();
       })
    }
+   changeCurrentChat = (arg) => {
+      var style = {
+         currentChat: arg
+      }
+      if (window.screen.width <= 760) {
+         style.chatMenuStyle = { display: "none" }
+         style.rightContainerStyle = { display: "block" }
+      }
+      this.setState(style)
+   }
    displayMessage(message) {
       this.setState((prevState) => {
          var chatToAddTo = this.state.currentChat
@@ -118,8 +123,8 @@ export default class MainUi extends React.Component {
    }
    toggleHamburgerMenu = () => {
       this.setState((prevState) => {
-         var block = {display: "block"}
-         var none = {display: "none"}
+         var block = { display: "block" }
+         var none = { display: "none" }
          var hamburgerMenuWasClosed = prevState.hamburgerMenuStyle.display === "none"
          var style = {
             hamburgerMenuStyle: none,
@@ -132,13 +137,13 @@ export default class MainUi extends React.Component {
                style.topBarStyle = none
                style.chatmenuStyle = none
                style.hamburgerMenuStyle = block
-            }else{
+            } else {
                style.chatmenuStyle = none
                style.topBarStyle = block
                style.textUiStyle = block
             }
          } else {
-            if (hamburgerMenuWasClosed){
+            if (hamburgerMenuWasClosed) {
                style.hamburgerMenuStyle = block
             }
          }
