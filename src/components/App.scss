@@ -8,15 +8,25 @@
    --hamburgerColor: brightness(100%);
 }
 html {
-   overflow: visible;
+   overflow-y: hidden;
+   overflow-x: visible;
 }
 body {
    background-color: var(--bodyColor);
    margin: 0;
 }
+::-webkit-scrollbar {
+   width: 15px;
+ }
+ ::-webkit-scrollbar-track {
+   background-color:var(--bodyColor);
+ }
+::-webkit-scrollbar-thumb {
+   background: var(--contrastingBodyColor); 
+    border-radius: 2px;
+ }
 
 .mainUi {
-
    height: 100vh;
    width: 100vw;
    display: flex;
@@ -164,7 +174,8 @@ body {
       height: 100%;
       width: calc(100% - 400px);
       display: block;
-
+      overflow-y: visible;
+      overflow-x: hidden;
       .TopBar {
          height: 50px;
          width: 100%;
@@ -199,8 +210,9 @@ body {
             overflow-y: auto;
             position: static;
             margin: 0;
-            height: 93%;
+            height: calc(100% - 90px);
             width: 100%;
+           
             .individualMessage {
                position: static;
                text-align: left;
@@ -240,7 +252,7 @@ body {
             display: flex;
             position: static;
             font-size: 30px;
-            height: 7%;
+            height: 90px;
             margin: 0;
             z-index: 0;
             textarea {
@@ -316,6 +328,10 @@ body {
    }
 }
 @media only screen and (max-device-width: 760px) and (orientation: portrait) {
+   html {
+      overflow-y: visible;
+      overflow-x: visible;
+   }
    .mainUi{
       display: block;
       .Settings{

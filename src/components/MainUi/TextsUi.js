@@ -114,7 +114,7 @@ export default class TextsUi extends React.Component {
                   onFocus={() => {
                      this.messageView.current.lastChild.scrollIntoView();
                   }}
-                  maxLength="200"
+                  maxLength="170"
                   ref={this.textInput}
                   onKeyDown={(event) => { this.enterKeyEvent(event) }}
                   placeholder="type a message here"
