@@ -20,13 +20,17 @@ export default class ChatMenu extends React.Component {
             <div className="topBar">
                <a
                   className='exitButton'
-                  onClick={()=> this.props.toggleChatMenu()}
+                  onClick={() => this.props.toggleChatMenu()}
                />
                Chats
             </div>
             <div className="chats">
                {mapedChats}
             </div>
+            <button
+               className="addChatButton"
+               onClick={() => this.props.toggleAddChat()}
+            >+</button>
          </div>
       )
    }

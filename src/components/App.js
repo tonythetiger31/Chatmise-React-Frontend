@@ -1,12 +1,16 @@
+//dependencies
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { io } from 'socket.io-client'
+//components
 import TextsUi from './mainUi/TextsUi.js'
 import ChatMenu from './mainUi/ChatMenu.js'
 import TopBar from './mainUi/TopBar.js'
 import HamburgerMenu from './mainUi/HamburgerMenu.js'
 import Settings from './mainUi/Settings.js'
+import AddChat from './mainUi/AddChat.js'
+//other files
 import css from './App.scss'
-import { io } from 'socket.io-client'
 import themes from './themes.js'
 import ping from '../resources/ping.mp3'
 
@@ -23,12 +27,12 @@ export default class MainUi extends React.Component {
          currentChat: 0,
          username: "Loading",
          theme: 0,
-
          hamburgerMenuStyle: { display: "none" },
          settingsStyle: { display: "none" },
          internetWarningPopUpStyle: { display: "none" },
          grayBackgroundStyle: { display: "none" },
          chatMenuStyle: { display: "block" },
+         AddChatStyle: { display: "none" },
          rightContainerStyle: {},
          topBarStyle: {},
          textUiStyle: {}
@@ -46,6 +50,7 @@ export default class MainUi extends React.Component {
       this.audio = new Audio(ping)
       this.isMobile = window.screen.width <= 760
    }
+   //socket functions
    componentDidMount() {
       window.screen.orientation.addEventListener("change", orientation => {
          if (window.screen.orientation.angle !== 0) {
@@ -85,6 +90,15 @@ export default class MainUi extends React.Component {
          window.location.reload();
       })
    }
+   sendAndDisplayMessage(message) {
+      this.displayMessage(message)
+      this.socket.emit('texts', {
+         text: message.text,
+         time: message.time,
+         chat: this.state.chats[this.state.currentChat]
+      })
+   }
+   //style functions
    changeCurrentChat = (arg) => {
       var style = {
          currentChat: arg
@@ -113,14 +127,27 @@ export default class MainUi extends React.Component {
          }
       })
    }
-   sendAndDisplayMessage(message) {
-      this.displayMessage(message)
-      this.socket.emit('texts', {
-         text: message.text,
-         time: message.time,
-         chat: this.state.chats[this.state.currentChat]
+   changeTheme = (arg) => {
+      try {
+         var value = arg.target.value
+         this.socket.emit('settings', {
+            settings: value
+         })
+      } catch (err) {
+         var value = arg
+      }
+      var keys = Object.keys(themes[value]),
+         values = Object.values(themes[value])
+      this.setState((_) => {
+         return {
+            theme: value
+         }
+      })
+      keys.forEach((element, i) => {
+         document.documentElement.style.setProperty(`--${element}`, values[i]);
       })
    }
+   //toggle functions
    toggleHamburgerMenu = () => {
       this.setState((prevState) => {
          var block = { display: "block" }
@@ -163,26 +190,6 @@ export default class MainUi extends React.Component {
          }
       })
    }
-   changeTheme = (arg) => {
-      try {
-         var value = arg.target.value
-         this.socket.emit('settings', {
-            settings: value
-         })
-      } catch (err) {
-         var value = arg
-      }
-      var keys = Object.keys(themes[value]),
-         values = Object.values(themes[value])
-      this.setState((_) => {
-         return {
-            theme: value
-         }
-      })
-      keys.forEach((element, i) => {
-         document.documentElement.style.setProperty(`--${element}`, values[i]);
-      })
-   }
    toggleChatMenu = () => {
       this.setState((prevState) => {
          var style = {
@@ -197,7 +204,21 @@ export default class MainUi extends React.Component {
          }
          return style
       })
-
+   }
+   toggleAddChat = () => {
+      this.setState((prevState) => {
+         var style = {
+            AddChatStyle: { display: "block" },
+            grayBackgroundStyle: { display: "block" }
+         }
+         if (prevState.AddChatStyle.display === "block") {
+            style = {
+               AddChatStyle: { display: "none" },
+               grayBackgroundStyle: { display: "none" }
+            }
+         }
+         return style
+      })
    }
    render() {
       return (
@@ -218,11 +239,17 @@ export default class MainUi extends React.Component {
                changeTheme={this.changeTheme}
                theme={this.state.theme}
             />
+            <AddChat
+               style={this.state.AddChatStyle}
+               toggleAddChat={this.toggleAddChat}
+               socket={this.socket}
+            />
             <ChatMenu
                changeCurrentChat={(arg) => this.changeCurrentChat(arg)}
                data={this.state.chats}
                style={this.state.chatMenuStyle}
                toggleChatMenu={this.toggleChatMenu}
+               toggleAddChat={this.toggleAddChat}
             />
             <div
                className="rightContainer"
