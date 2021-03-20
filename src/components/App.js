@@ -23,7 +23,8 @@ export default class MainUi extends React.Component {
             "text": "Loading...",
             "sender": "Loading..."
          }],],
-         chats: ["Loading..."],
+         chatNames: ["Loading..."],
+         chatIds: ["Loading..."],
          currentChat: 0,
          username: "Loading",
          theme: 0,
@@ -32,7 +33,7 @@ export default class MainUi extends React.Component {
          internetWarningPopUpStyle: { display: "none" },
          grayBackgroundStyle: { display: "none" },
          chatMenuStyle: { display: "block" },
-         AddChatStyle: { display: "none" },
+         addChatStyle: { display: "none" },
          rightContainerStyle: {},
          topBarStyle: {},
          textUiStyle: {}
@@ -64,7 +65,8 @@ export default class MainUi extends React.Component {
          if (body !== "invalid credentials") {
             this.setState((_) => {
                return {
-                  chats: body.collections,
+                  chatIds: body.chatIds,
+                  chatNames: body.chatNames,
                   texts: body.data,
                   username: body.username
                }
@@ -95,10 +97,16 @@ export default class MainUi extends React.Component {
       this.socket.emit('texts', {
          text: message.text,
          time: message.time,
-         chat: this.state.chats[this.state.currentChat]
+         chat: this.state.chatIds[this.state.currentChat]
       })
    }
    //style functions
+   hideNewChatMenu = () => {
+      this.setState({
+         addChatStyle: { display: "none" },
+         grayBackgroundStyle: { display: "none" }
+      })
+   }
    changeCurrentChat = (arg) => {
       var style = {
          currentChat: arg
@@ -113,7 +121,7 @@ export default class MainUi extends React.Component {
       this.setState((prevState) => {
          var chatToAddTo = this.state.currentChat
          if (message.chat) {
-            chatToAddTo = prevState.chats.indexOf(message.chat)
+            chatToAddTo = prevState.chatIds.indexOf(message.chat)
          }
          var newTexts = prevState.texts.map((element, i) => {
             var result = element
@@ -208,12 +216,12 @@ export default class MainUi extends React.Component {
    toggleAddChat = () => {
       this.setState((prevState) => {
          var style = {
-            AddChatStyle: { display: "block" },
+            addChatStyle: { display: "block" },
             grayBackgroundStyle: { display: "block" }
          }
-         if (prevState.AddChatStyle.display === "block") {
+         if (prevState.addChatStyle.display === "block") {
             style = {
-               AddChatStyle: { display: "none" },
+               addChatStyle: { display: "none" },
                grayBackgroundStyle: { display: "none" }
             }
          }
@@ -240,13 +248,14 @@ export default class MainUi extends React.Component {
                theme={this.state.theme}
             />
             <AddChat
-               style={this.state.AddChatStyle}
+               hideNewChatMenu={_=>this.hideNewChatMenu()}
+               style={this.state.addChatStyle}
                toggleAddChat={this.toggleAddChat}
                socket={this.socket}
             />
             <ChatMenu
                changeCurrentChat={(arg) => this.changeCurrentChat(arg)}
-               data={this.state.chats}
+               data={this.state.chatNames}
                style={this.state.chatMenuStyle}
                toggleChatMenu={this.toggleChatMenu}
                toggleAddChat={this.toggleAddChat}
@@ -258,7 +267,7 @@ export default class MainUi extends React.Component {
                <TopBar
                   style={this.state.topBarStyle}
                   hamburgerMenuStyle={this.state.hamburgerMenuStyle}
-                  data={this.state.chats[this.state.currentChat]}
+                  data={this.state.chatNames[this.state.currentChat]}
                   toggleHamburgerMenu={this.toggleHamburgerMenu}
                   toggleChatMenu={this.toggleChatMenu}
                />
