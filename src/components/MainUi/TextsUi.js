@@ -100,7 +100,7 @@ export default function TextsUi(props) {
       )
    })
    return (
-      <div className="TextsUi" style={props.style}>
+      <div className="TextsUi">
          <div
             className="messagesView"
             ref={messageViewRef}

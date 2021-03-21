@@ -13,7 +13,7 @@ export default function ChatMenu(props) {
       )
    })
    return (
-      <div className="ChatMenu" style={props.style}>
+      <div className="ChatMenu">
          <div className="topBar">
             <a
                className='exitButton'

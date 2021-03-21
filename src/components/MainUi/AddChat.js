@@ -22,9 +22,7 @@ export default function AddChat(props){
    }
       return (
          <div
-            className="AddChat"
-            style={props.style}
-         >
+            className="AddChat">
             <a type='button' onClick={() => props.toggleAddChat()} />
             <div className="title">Add Chat</div>
             <form

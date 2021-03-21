@@ -36,7 +36,6 @@ body {
       position: fixed;
       padding: 50px 100px 150px 100px;
       text-align: center;
-      border:solid 1px var(--lineColor);
       border-radius: 17px;
       top: 50%;
       left: 50%;
@@ -85,7 +84,7 @@ body {
       }
    }
    .internetWarningPopUp{
-      display: none;
+      display: block;
       position: fixed;
       background-color: var(--contrastingBodyColor);
       border: solid var(--lineColor);
@@ -102,7 +101,6 @@ body {
       padding: 20px;
    }
    .grayBackground {
-      display: none;
       z-index: 1;
       position: fixed;
       height: 100vh;
@@ -110,8 +108,32 @@ body {
       background-color: black;
       opacity: 0.4;
    }
-   .Settings {
+   .ChatInfo{
       display: none;
+      z-index: 1;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      background-color: var(--contrastingBodyColor);
+      text-align: center;
+      color: var(--textColor);
+      transform: translate(-50%, -50%);
+      padding: 50px 100px 150px 100px;
+      border-radius: 17px;
+      font-family: Arial, Helvetica, sans-serif;
+      .title{
+         font-size:40px;
+         margin-bottom: 20px;
+      }
+      .subTitle{
+         font-size: 25px;
+         margin-bottom: 10px;
+      }
+      .members{
+
+      }
+   }
+   .Settings {
       opacity: 1;
       position: fixed;
       z-index: 1;
@@ -119,8 +141,6 @@ body {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      border: var(--textColor) solid;
-      border-width: 1px;
       padding: 50px 100px 150px 100px;
       background-color: var(--contrastingBodyColor);
       font-family: Arial, Helvetica, sans-serif;
@@ -155,7 +175,7 @@ body {
    }
    .HamburgerMenu {
       background-color: var(--bodyColor);
-      display: none;
+      display: block;
       position: absolute;
       top: 50px;
       right: 0;
@@ -203,14 +223,12 @@ body {
       display: block;
       height: 100%;
       width: 400px;
-      border: solid var(--lineColor);
       background-color: var(--contrastingBodyColor);
       color: var(--textColor);
       overflow: auto;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 30px;
       text-align: center;
-      border-width: 0;
       .topBar{
          display: none;
       }
@@ -404,7 +422,6 @@ body {
       overflow-x: visible;
    }
    .mainUi{
-      display: block;
       .Settings{
          padding: 50px 100px 100px 100px;
          a{
@@ -425,7 +442,6 @@ body {
       }
       .ChatMenu{
          width: 100%;
-         display: block;
          .topBar{
             display: block;
             font-size: 30px;
@@ -450,7 +466,6 @@ body {
       }
       .rightContainer{
          width: 100%;
-         display: none;
          .TopBar{
             position: fixed;
             top:0;
