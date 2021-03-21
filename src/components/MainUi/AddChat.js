@@ -1,16 +1,15 @@
-import React from 'react'
-export default class AddChat extends React.Component {
-   constructor() {
-      super()
-      this.chatName = React.createRef()
-      this.button = React.createRef()
-   }
-   sendNewChatInfo() {
-      this.props.socket.emit('newChat', {
-         chatName: this.chatName.current.value,
+import React, {useRef} from 'react'
+
+export default function AddChat(props){
+   var chatNameRef = useRef(null),
+   buttonRef = useRef(null)
+   
+   function sendNewChatInfo() {
+      props.socket.emit('newChat', {
+         chatName: chatNameRef.current.value,
       })
-      this.button.current.innerHTML = "creating..."
-      this.props.socket.on('newChat',(body)=>{ 
+      buttonRef.current.innerHTML = "creating..."
+      props.socket.on('newChat',(body)=>{ 
          if (body === 400){
             alert('you already have already created the max of 5 chats')
          }else if (body === 200){
@@ -18,30 +17,29 @@ export default class AddChat extends React.Component {
          }else{
             alert('there was an error when creating your chat')
          }
-         this.button.current.innerHTML = "CREATE"
+         buttonRef.current.innerHTML = "CREATE"
       })
    }
-   render() {
       return (
          <div
             className="AddChat"
-            style={this.props.style}
+            style={props.style}
          >
-            <a type='button' onClick={() => this.props.toggleAddChat()} />
+            <a type='button' onClick={() => props.toggleAddChat()} />
             <div className="title">Add Chat</div>
             <form
                onSubmit={(event) => {
-                  this.sendNewChatInfo()
+                  sendNewChatInfo()
                   event.preventDefault()
                }}>
                <input
                   placeholder="Chat Name"
                   maxLength="10"
-                  ref={this.chatName}
+                  ref={chatNameRef}
                   required
                /><br/>
                <button
-                  ref={this.button}
+                  ref={buttonRef}
                   type="submit"
                   className="Create"
                >
@@ -49,5 +47,4 @@ export default class AddChat extends React.Component {
             </form>
          </div >
       )
-   }
 }

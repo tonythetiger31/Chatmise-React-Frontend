@@ -2,32 +2,25 @@ import React from "react"
 import exitSvg from '../../resources/exit.svg'
 import hamburgerSvg from '../../resources/hamburger.svg'
 
-
-export default class TopBar extends React.Component {
-   constructor() {
-      super()
-      this.style = { content: `url(${hamburgerSvg})` }
-   }
-   conditionalRender() {
-      if (this.props.hamburgerMenuStyle.display === "block") {
-         this.style = { content: `url(${exitSvg})` }
+export default function TopBar(props) {
+   var style = { content: `url(${hamburgerSvg})` }
+   const conditionalRender = (() => {
+      if (props.hamburgerMenuStyle.display === "block") {
+         style = { content: `url(${exitSvg})` }
       } else {
-         this.style = { content: `url(${hamburgerSvg})` }
+         style = { content: `url(${hamburgerSvg})` }
       }
-   }
-   render() {
-      this.conditionalRender()
-      return (
-         <div className="TopBar" style = {this.props.style}>
-            <a className="chatButton" onClick={()=> this.props.toggleChatMenu()}/>
-            <div>{this.props.data}</div>
-            <a
-               className="hamburgerButton"
-               type="button"
-               onClick={() => { this.props.toggleHamburgerMenu() }}
-               style={this.style}
-            />
-         </div>
-      )
-   }
+   })()
+   return (
+      <div className="TopBar" style={props.style}>
+         <a className="chatButton" onClick={() => props.toggleChatMenu()} />
+         <div>{props.data}</div>
+         <a
+            className="hamburgerButton"
+            type="button"
+            onClick={() => { props.toggleHamburgerMenu() }}
+            style={style}
+         />
+      </div>
+   )
 }
