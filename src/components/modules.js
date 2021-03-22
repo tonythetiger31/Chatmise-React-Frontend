@@ -8,91 +8,62 @@ function useRender() {
       renInternetWarning: false,
       renGrayBackground: false,
       renChatMenu: true,
-      renAddChat: false,
+      renCreateChat: false,
       renRightContainer: isMobile ? false : true,
       renTobBar: true,
-      renTextUi: true
+      renTextUi: true,
+      renChatInfo: false
    })
    const toggleHamburgerMenu = () => {
       setRender(prevState => {
-         var hamburgerMenuWasClosed = prevState.renHamburgerMenu === false
-         var style = {
+         var bools = {
             ...render,
             renHamburgerMenu: false,
             renRightContainer: true,
             renChatMenu: true
          }
          if (isMobile) {
-            if (hamburgerMenuWasClosed) {
-               style.renTextUi = false
-               style.renChatMenu = false
-               style.renHamburgerMenu = true
-               style.renTobBar = false
+            if (!prevState.renHamburgerMenu) {
+               bools.renTextUi = false
+               bools.renChatMenu = false
+               bools.renHamburgerMenu = true
+               bools.renTobBar = false
             } else {
-               style.renChatMenu = false
-               style.renRightContainer = true
-               style.renTobBar = true
-               style.renTextUi = true
+               bools.renChatMenu = false
+               bools.renRightContainer = true
+               bools.renTobBar = true
+               bools.renTextUi = true
             }
          } else {
-            if (hamburgerMenuWasClosed) {
-               style.renHamburgerMenu = true
+            if (!prevState.renHamburgerMenu) {
+               bools.renHamburgerMenu = true
             }
          }
-         return style
+         return bools
       })
    }
-   function toggleSettings() {
+   function toggleComponentRender(component){
       setRender(prevState => {
-         var style = false
-         if (prevState.renSettings === false) {
-            style = true
-         }
          return {
             ...render,
-            renSettings: style,
-            renGrayBackground: style
+            [component]: !prevState[component],
+            renGrayBackground: !prevState[component]
          }
       })
    }
    const toggleChatMenu = () => {
       setRender(prevState => {
-         var style = {
+         return {
             ...render,
-            renChatMenu: true,
-            renRightContainer: false
+            renChatMenu: !prevState.renChatMenu,
+            renRightContainer: prevState.renChatMenu
          }
-         if (prevState.renChatMenu) {
-            style = {
-               ...render,
-               renChatMenu: false,
-               renRightContainer: true
-            }
-         }
-         return style
-      })
-   }
-   const toggleAddChat = () => {
-      setRender(prevState => {
-         var style = {
-            ...render,
-            renAddChat: true,
-            renGrayBackground: true
-         }
-         if (prevState.renAddChat === true) {
-            style = {
-               ...render,
-               renAddChat: false,
-               renGrayBackground: false
-            }
-         }
-         return style
       })
    }
 
    return [
       render, setRender, toggleHamburgerMenu,
-      toggleSettings, toggleChatMenu, toggleAddChat
+       toggleChatMenu, toggleComponentRender
    ]
 }
 

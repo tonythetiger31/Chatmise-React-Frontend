@@ -25,8 +25,8 @@ export default function ChatMenu(props) {
             {mapedChats}
          </div>
          <button
-            className="addChatButton"
-            onClick={() => props.toggleAddChat()}
+            className="createChatButton"
+            onClick={() => props.toggle('renCreateChat')}
          >+</button>
       </div>
    )

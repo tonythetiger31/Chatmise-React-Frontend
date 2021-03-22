@@ -1,6 +1,5 @@
 //dependencies
-import React, { Component, useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
+import React, { useEffect, useState } from 'react'
 import socket from './socket.js'
 //components
 import TextsUi from './mainUi/TextsUi.js'
@@ -8,7 +7,7 @@ import ChatMenu from './mainUi/ChatMenu.js'
 import TopBar from './mainUi/TopBar.js'
 import HamburgerMenu from './mainUi/HamburgerMenu.js'
 import Settings from './mainUi/Settings.js'
-import AddChat from './mainUi/AddChat.js'
+import CreateChat from './mainUi/CreateChat.js'
 import ChatInfo from './mainUi/ChatInfo'
 //other files
 import css from './App.scss'
@@ -17,7 +16,7 @@ import ping from '../resources/ping.mp3'
 import * as modules from './modules.js'
 
 export default function MainUi() {
-   const [chatInfo, setChatInfo] = useState({
+   const [appData, setAppData] = useState({
       texts: [[{
          "time": 3141592653,
          "text": "Loading...",
@@ -26,10 +25,12 @@ export default function MainUi() {
       chatNames: ["Loading..."],
       chatIds: ["Loading..."],
       username: "Loading",
+      admins: ["Loading.."],
+      members: ["Loading"]
    })
    const [
-      render, setRender, toggleHamburgerMenu,
-      toggleSettings, toggleChatMenu, toggleAddChat
+      render, setRender, toggleHamburgerMenu
+      , toggleChatMenu, toggleComponent
    ] = modules.useRender()
    const [currentChat, setCurrentChat] = useState(0)
    const [theme, setTheme] = useState(1)
@@ -44,11 +45,13 @@ export default function MainUi() {
 
       socket.on('allTexts', (body) => {
          if (body !== "invalid credentials") {
-            setChatInfo({
+            setAppData({
                chatIds: body.chatIds,
                chatNames: body.chatNames,
                texts: body.data,
-               username: body.username
+               username: body.username,
+               admins: body.admins,
+               members: body.members
             })
             changeTheme(body.settings)
          } else {
@@ -76,7 +79,7 @@ export default function MainUi() {
       socket.emit('texts', {
          text: message.text,
          time: message.time,
-         chat: chatInfo.chatIds[currentChat]
+         chat: appData.chatIds[currentChat]
       })
    }
    //style functions
@@ -91,7 +94,7 @@ export default function MainUi() {
       setCurrentChat(arg)
    }
    function displayMessage(message) {
-      setChatInfo(prevState => {
+      setAppData(prevState => {
          var chatToAddTo = currentChat
          if (message.chat) {
             chatToAddTo = prevState.chatIds.indexOf(message.chat)
@@ -103,9 +106,8 @@ export default function MainUi() {
             }
             return result
          })
-         console.log(newTexts)
          return {
-            ...chatInfo,
+            ...appData,
             texts: newTexts
          }
       })
@@ -136,24 +138,28 @@ export default function MainUi() {
             <div className="grayBackground" />}
          {render.renSettings &&
             <Settings
-               toggleSettings={toggleSettings}
+               toggle={toggleComponent}
                changeTheme={changeTheme}
                theme={theme}
             />}
+         {render.renChatInfo &&
+         <ChatInfo 
+            toggle={toggleComponent}
+            admin={appData.admins[currentChat]}
+            members={appData.members[currentChat]}
+         />}
 
-         <ChatInfo />
-
-         {render.renAddChat &&
-            <AddChat
-               toggleAddChat={toggleAddChat}
+         {render.renCreateChat &&
+            <CreateChat
+               toggle={toggleComponent}
                socket={socket}
             />}
          {render.renChatMenu &&
             <ChatMenu
                changeCurrentChat={(arg) => changeCurrentChat(arg)}
-               data={chatInfo.chatNames}
+               data={appData.chatNames}
                toggleChatMenu={toggleChatMenu}
-               toggleAddChat={toggleAddChat}
+               toggle={toggleComponent}
             />}
 
          {render.renRightContainer &&
@@ -161,21 +167,21 @@ export default function MainUi() {
                {render.renTobBar &&
                   <TopBar
                      renHamburgerMenu={render.renHamburgerMenu}
-                     data={chatInfo.chatNames[currentChat]}
+                     data={appData.chatNames[currentChat]}
                      toggleHamburgerMenu={toggleHamburgerMenu}
                      toggleChatMenu={toggleChatMenu}
                   />}
                {render.renHamburgerMenu &&
                   <HamburgerMenu
-                     username={chatInfo.username}
-                     toggleSettings={toggleSettings}
+                     username={appData.username}
+                     toggle={toggleComponent}
                      toggleHamburgerMenu={toggleHamburgerMenu}
                   />}
                {render.renTextUi &&
                   <TextsUi
                      sendAndDisplayMessage={(arg) => sendAndDisplayMessage(arg)}
-                     data={chatInfo.texts[currentChat]}
-                     username={chatInfo.username}
+                     data={appData.texts[currentChat]}
+                     username={appData.username}
                   />}
             </div>}
       </div >

@@ -17,8 +17,8 @@ export default function HamburgerMenu(props) {
          <div className="HamburgerMenu">
             <a className="exitButton" onClick={() => props.toggleHamburgerMenu()}/>
             <div className="youAreLoggedInAs">Logged in as {props.username} </div>
-            <button onClick={() => props.toggleSettings()} >Chat Info</button><br />
-            <button onClick={() => props.toggleSettings()} >Settings</button><br />
+            <button onClick={() => props.toggle('renChatInfo')} >Chat Info</button><br />
+            <button onClick={() => props.toggle('renSettings')} >Settings</button><br />
             <button onClick={() => logout()}>Logout</button><br />
             <button onClick={goToBugReportWebsite}>Report Bugs</button>
             <a className="homeLink" href="/home">Home</a>

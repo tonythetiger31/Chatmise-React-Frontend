@@ -10,7 +10,7 @@ export default function HamburgerMenu(props){
       })
       return (
          <div className="Settings" style={props.style} >
-            <a type='button' onClick={() => props.toggleSettings()}></a>
+            <a type='button' onClick={() => props.toggle('renSettings')}></a>
             <div className="title">Settings</div>
             <div>Theme</div>
             <select value={props.theme} onChange={props.changeTheme}>

@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 
-export default function AddChat(props){
+export default function CreateChat(props){
    var chatNameRef = useRef(null),
    buttonRef = useRef(null)
    
@@ -22,9 +22,9 @@ export default function AddChat(props){
    }
       return (
          <div
-            className="AddChat">
-            <a type='button' onClick={() => props.toggleAddChat()} />
-            <div className="title">Add Chat</div>
+            className="CreateChat">
+            <a type='button' onClick={() => props.toggle('renCreateChat')} />
+            <div className="title">Create Chat</div>
             <form
                onSubmit={(event) => {
                   sendNewChatInfo()
