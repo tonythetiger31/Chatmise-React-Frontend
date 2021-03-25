@@ -9,6 +9,7 @@ import HamburgerMenu from './mainUi/HamburgerMenu.js'
 import Settings from './mainUi/Settings.js'
 import CreateChat from './mainUi/CreateChat.js'
 import ChatInfo from './mainUi/ChatInfo'
+import InviteMenu from './mainUi/InviteMenu.js'
 //other files
 import css from './App.scss'
 import themes from './themes.js'
@@ -143,17 +144,28 @@ export default function MainUi() {
                theme={theme}
             />}
          {render.renChatInfo &&
-         <ChatInfo 
-            toggle={toggleComponent}
-            admin={appData.admins[currentChat]}
-            members={appData.members[currentChat]}
-         />}
+            <ChatInfo
+               toggle={toggleComponent}
+               admin={appData.admins[currentChat]}
+               members={appData.members[currentChat]}
+               username={appData.username}
+            />}
 
          {render.renCreateChat &&
             <CreateChat
                toggle={toggleComponent}
                socket={socket}
             />}
+
+         {render.renInviteMenu &&
+            <InviteMenu
+               toggle={toggleComponent}
+               chatId={appData.chatIds[currentChat]}
+               username={appData.username}
+               chatName={appData.chatNames[currentChat]}
+               username={appData.username}
+            />}
+
          {render.renChatMenu &&
             <ChatMenu
                changeCurrentChat={(arg) => changeCurrentChat(arg)}
@@ -174,6 +186,7 @@ export default function MainUi() {
                {render.renHamburgerMenu &&
                   <HamburgerMenu
                      username={appData.username}
+                     admin={appData.admins[currentChat]}
                      toggle={toggleComponent}
                      toggleHamburgerMenu={toggleHamburgerMenu}
                   />}

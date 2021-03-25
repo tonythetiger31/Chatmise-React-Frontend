@@ -18,20 +18,20 @@ body {
 }
 ::-webkit-scrollbar {
    width: 15px;
- }
- ::-webkit-scrollbar-track {
-   background-color:var(--bodyColor);
- }
+}
+::-webkit-scrollbar-track {
+   background-color: var(--bodyColor);
+}
 ::-webkit-scrollbar-thumb {
-   background: var(--contrastingBodyColor); 
-    border-radius: 2px;
- }
+   background: var(--contrastingBodyColor);
+   border-radius: 2px;
+}
 
 .mainUi {
    height: 100vh;
    width: 100vw;
    display: flex;
-   .CreateChat{
+   .CreateChat {
       display: block;
       position: fixed;
       padding: 50px 100px 150px 100px;
@@ -43,8 +43,8 @@ body {
       z-index: 1;
       background-color: var(--bodyColor);
       color: var(--textColor);
-      font-family: Arial, Helvetica, sans-serif;    
-      a{
+      font-family: Arial, Helvetica, sans-serif;
+      a {
          user-select: none;
          position: absolute;
          right: 0;
@@ -57,33 +57,33 @@ body {
             opacity: 0.8;
          }
       }
-      .title{
+      .title {
          font-size: 40px;
          margin-bottom: 30px;
       }
-      .Create{
+      .Create {
          padding: 3px 40px 3px 40px;
-         font-size:25px;
+         font-size: 25px;
          cursor: pointer;
-         background-color:var(--greenColor);
-         color:var(--bodyColor);
+         background-color: var(--greenColor);
+         color: var(--bodyColor);
          transition: 0.1s;
-         border:none;
+         border: none;
          border-radius: 8px;
-         outline:none;
-         &:hover{
+         outline: none;
+         &:hover {
             padding-left: 70px;
             padding-right: 70px;
-            background-color:var(--darkGreenColor);
-            color:var(--textColor);
+            background-color: var(--darkGreenColor);
+            color: var(--textColor);
          }
       }
-      input{
+      input {
          font-size: 20px;
          margin-bottom: 20px;
       }
    }
-   .internetWarningPopUp{
+   .internetWarningPopUp {
       display: block;
       position: fixed;
       background-color: var(--contrastingBodyColor);
@@ -108,7 +108,7 @@ body {
       background-color: black;
       opacity: 0.4;
    }
-   .ChatInfo{
+   .ChatInfo {
       z-index: 1;
       position: fixed;
       top: 50%;
@@ -133,16 +133,13 @@ body {
             opacity: 0.8;
          }
       }
-      .title{
-         font-size:40px;
+      .title {
+         font-size: 40px;
          margin-bottom: 20px;
       }
-      .subTitle{
+      .subTitle {
          font-size: 25px;
          margin-bottom: 10px;
-      }
-      .members{
-         
       }
    }
    .Settings {
@@ -186,6 +183,7 @@ body {
       }
    }
    .HamburgerMenu {
+      font-family: Arial, Helvetica, sans-serif;
       background-color: var(--bodyColor);
       display: block;
       position: absolute;
@@ -193,11 +191,11 @@ body {
       right: 0;
       text-align: center;
       padding: 50px;
+      box-shadow: -15px 16px 20px 0px #00000024;
       .youAreLoggedInAs {
          margin: 20px 0 20px 0;
          color: var(--yellowColor);
          font-size: 30px;
-         font-family: Arial, Helvetica, sans-serif;
       }
       button {
          text-decoration: none;
@@ -222,13 +220,72 @@ body {
             color: white;
          }
       }
-      .homeLink {
-         text-align: center;
-         display: block;
-         color: white;
-         font-family: Arial, Helvetica, sans-serif;
-         font-size: 20px;
-         margin: 10px 0 0 0;
+      .links {
+         margin: 20px 0 0 0;
+         pre {
+            display: inline;
+            color: white;
+            font-size: 20px;
+         }
+         a {
+            color: white;
+            font-size: 20px;
+         }
+      }
+   }
+   .InviteMenu{
+      z-index: 1;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      background-color: var(--contrastingBodyColor);
+      text-align: center;
+      color: var(--textColor);
+      transform: translate(-50%, -50%);
+      padding: 50px 100px 150px 100px;
+      border-radius: 17px;
+      font-family: Arial, Helvetica, sans-serif;
+      a {
+         user-select: none;
+         position: absolute;
+         right: 0;
+         top: 0;
+         cursor: pointer;
+         content: url("../resources/exit.svg");
+         height: 50px;
+         transition: 0.2s;
+         &:hover {
+            opacity: 0.8;
+         }
+      }
+      .title {
+         font-size: 35px;
+         margin-bottom: 20px;
+      }
+      input{
+         color: var(--greenColor);
+         border: none;
+         outline: none;
+         font-size: 25px;
+         background-color: var(--bodyColor);
+      }
+      button{
+         outline:none;
+         border: none;
+         font-size: 25px;
+         background-color: var(--greenColor);
+         cursor: pointer;
+         transition: .3s;
+         &:hover{
+            color: var(--textColor);
+            background-color: var(--darkGreenColor);
+         }
+      }
+      .message{
+         font-size: 25px;
+         background-color: rgb(187, 42, 42);
+         color: var(--textColor);
+         border: none;
       }
    }
    .ChatMenu {
@@ -241,7 +298,7 @@ body {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 30px;
       text-align: center;
-      .topBar{
+      .topBar {
          display: none;
       }
       .individualChat {
@@ -252,23 +309,22 @@ body {
             background-color: var(--bodyColor);
          }
       }
-     .createChatButton {
-        outline:none;
-        border:solid 1px var(--lineColor);
-        background-color: transparent;
-        color:var(--greenColor);
-        padding: 0 25px 0 25px;
-        position:absolute;
-        border-radius: 99px;
-        font-size: 80px;
-        bottom: 20px;
-        left: 20px;
-        cursor: pointer;
-        &:hover {
-           
-           background-color: var(--bodyColor);
-        }
-     } 
+      .createChatButton {
+         outline: none;
+         border: solid 1px var(--lineColor);
+         background-color: transparent;
+         color: var(--greenColor);
+         padding: 0 25px 0 25px;
+         position: absolute;
+         border-radius: 99px;
+         font-size: 80px;
+         bottom: 20px;
+         left: 20px;
+         cursor: pointer;
+         &:hover {
+            background-color: var(--bodyColor);
+         }
+      }
    }
 
    .rightContainer {
@@ -313,7 +369,7 @@ body {
             margin: 0;
             height: calc(100% - 90px);
             width: 100%;
-           
+
             .individualMessage {
                position: static;
                text-align: left;
@@ -391,15 +447,15 @@ body {
 @media only screen and (max-device-width: 1300px) and (orientation: portrait) {
    .mainUi {
       .chatMenu {
-         width: 300px
+         width: 300px;
       }
       .rightContainer {
          width: calc(100% - 300px);
-         .TextsUi .messageInputs{
-            textarea{
+         .TextsUi .messageInputs {
+            textarea {
                width: 80%;
             }
-            button{
+            button {
                display: block;
                width: 20%;
             }
@@ -410,16 +466,16 @@ body {
 @media only screen and (max-device-width: 1400px) and (orientation: landscape) {
    .mainUi {
       .chatMenu {
-         width: 400px
+         width: 400px;
       }
       .rightContainer {
          width: calc(100% - 400px);
          .TextsUi {
-            .messageInputs{
-               textarea{
+            .messageInputs {
+               textarea {
                   width: 80%;
                }
-               button{
+               button {
                   display: block;
                   width: 20%;
                }
@@ -433,98 +489,99 @@ body {
       overflow-y: visible;
       overflow-x: visible;
    }
-   .mainUi{
-      .Settings{
+   .mainUi {
+      .Settings {
          padding: 50px 100px 100px 100px;
-         a{
+         a {
             height: 40px;
          }
       }
-      .HamburgerMenu{
+      .HamburgerMenu {
          position: static;
          padding: 50px 0 0 0;
          top: 40px;
-         .exitButton{
+         box-shadow: none;
+         .exitButton {
             position: absolute;
             top: 0;
             right: 0;
             height: 40px;
-            content: url('../resources/exit.svg');
+            content: url("../resources/exit.svg");
          }
       }
-      .ChatMenu{
+      .ChatMenu {
          width: 100%;
-         .topBar{
+         .topBar {
             display: block;
             font-size: 30px;
             height: 40px;
-            .exitButton{
+            .exitButton {
                position: absolute;
                top: 0;
                left: 0;
                height: 40px;
-               content: url('../resources/exit.svg');
+               content: url("../resources/exit.svg");
             }
          }
-         .chats{
+         .chats {
             overflow: auto;
             height: calc(100% - 40px);
-            .individualChat{
-               border:solid var(--lineColor);
+            .individualChat {
+               border: solid var(--lineColor);
                border-width: 1px 0 0 0;
                border-radius: 3px;
             }
          }
       }
-      .rightContainer{
+      .rightContainer {
          width: 100%;
-         .TopBar{
+         .TopBar {
             position: fixed;
-            top:0;
+            top: 0;
             height: 40px;
-            div{
+            div {
                font-size: 30px;
             }
-            .chatButton{
-               content: url('../resources/chatButton.svg');
+            .chatButton {
+               content: url("../resources/chatButton.svg");
                position: absolute;
                left: 0;
             }
-            a{
+            a {
                -webkit-tap-highlight-color: transparent;
                height: inherit;
             }
          }
-         .TextsUi{
+         .TextsUi {
             height: 100%;
-            .messagesView{
+            .messagesView {
                height: calc(100% - 110px);
                padding-top: 40px;
-               .individualMessage{
+               .individualMessage {
                   padding: 5px 20px 5px 20px;
                   font-size: 20px;
-                  .info{
+                  .info {
                      line-height: 20px;
-                     .sender{
+                     .sender {
                         font-size: 13px;
                      }
-                     .time{
+                     .time {
                         line-height: 16px;
                         font-size: 10px;
                      }
                   }
                }
             }
-            .messageInputs{
+            .messageInputs {
                height: 70px;
-               textarea{
+               textarea {
                   width: 80%;
                   font-size: 22px;
                }
-               button{
+               button {
                   display: block;
                   -webkit-tap-highlight-color: transparent;
-                  outline:none;
+                  outline: none;
                   width: 20%;
                   font-size: 22px;
                }

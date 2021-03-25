@@ -12,7 +12,8 @@ function useRender() {
       renRightContainer: isMobile ? false : true,
       renTobBar: true,
       renTextUi: true,
-      renChatInfo: false
+      renChatInfo: false,
+      renInviteMenu: false
    })
    const toggleHamburgerMenu = () => {
       setRender(prevState => {
@@ -60,7 +61,6 @@ function useRender() {
          }
       })
    }
-
    return [
       render, setRender, toggleHamburgerMenu,
        toggleChatMenu, toggleComponentRender
