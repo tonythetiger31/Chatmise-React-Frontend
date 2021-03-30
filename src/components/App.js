@@ -10,6 +10,8 @@ import Settings from './mainUi/Settings.js'
 import CreateChat from './mainUi/CreateChat.js'
 import ChatInfo from './mainUi/ChatInfo'
 import InviteMenu from './mainUi/InviteMenu.js'
+import YourInvites from './mainUi/YourInvites.js'
+
 //other files
 import css from './App.scss'
 import themes from './themes.js'
@@ -19,15 +21,16 @@ import * as modules from './modules.js'
 export default function MainUi() {
    const [appData, setAppData] = useState({
       texts: [[{
-         "time": 3141592653,
+         "time": 0,
          "text": "Loading...",
          "sender": "Loading..."
       }],],
       chatNames: ["Loading..."],
       chatIds: ["Loading..."],
       username: "Loading",
-      admins: ["Loading.."],
-      members: ["Loading"]
+      admins: ["Loading..."],
+      members: ["Loading..."],
+      invites: ["Loading..."]
    })
    const [
       render, setRender, toggleHamburgerMenu
@@ -46,20 +49,13 @@ export default function MainUi() {
 
       socket.on('allTexts', (body) => {
          if (body !== "invalid credentials") {
-            setAppData({
-               chatIds: body.chatIds,
-               chatNames: body.chatNames,
-               texts: body.data,
-               username: body.username,
-               admins: body.admins,
-               members: body.members
-            })
+            setAppData(body)
             changeTheme(body.settings)
          } else {
             console.log("ERR Credentials Invalid")
          }
       })
-      socket.on('text', (body) => {
+      socket.on('texts', (body) => {
          displayMessage(body)
          if (document.visibilityState !== 'visible') {
             audio.play()
@@ -78,9 +74,9 @@ export default function MainUi() {
    function sendAndDisplayMessage(message) {
       displayMessage(message)
       socket.emit('texts', {
-         text: message.text,
-         time: message.time,
-         chat: appData.chatIds[currentChat]
+         "text": message.text,
+         "time": message.time,
+         "chatId": appData.chatIds[currentChat]
       })
    }
    //style functions
@@ -97,9 +93,10 @@ export default function MainUi() {
    function displayMessage(message) {
       setAppData(prevState => {
          var chatToAddTo = currentChat
-         if (message.chat) {
-            chatToAddTo = prevState.chatIds.indexOf(message.chat)
+         if (message.chatId) {
+            chatToAddTo = prevState.chatIds.indexOf(message.chatId)
          }
+         console.log({ chatToAddTo, message })
          var newTexts = prevState.texts.map((element, i) => {
             var result = element
             if (i === chatToAddTo) {
@@ -107,8 +104,9 @@ export default function MainUi() {
             }
             return result
          })
+         console.log({ newTexts }, prevState.texts)
          return {
-            ...appData,
+            ...prevState,
             texts: newTexts
          }
       })
@@ -154,7 +152,6 @@ export default function MainUi() {
          {render.renCreateChat &&
             <CreateChat
                toggle={toggleComponent}
-               socket={socket}
             />}
 
          {render.renInviteMenu &&
@@ -172,6 +169,13 @@ export default function MainUi() {
                data={appData.chatNames}
                toggleChatMenu={toggleChatMenu}
                toggle={toggleComponent}
+            />}
+
+         {render.renYourInvites &&
+            <YourInvites
+               toggle={toggleComponent}
+               invites={appData.invites}
+               setAppData={setAppData}
             />}
 
          {render.renRightContainer &&

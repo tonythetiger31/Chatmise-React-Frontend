@@ -1,14 +1,14 @@
 var themes = [
    {
-      name: 'select'
-   },
-   {
       name: 'black',
       bodyColor: 'rgb(20, 20, 20)',
       contrastingBodyColor: 'rgb(30, 30, 30)',
       textColor: 'white',
       yellowColor: 'rgb(196, 199, 0)',
       greenColor: '#52fb9e',
+      darkGreenColor: '#36a568',
+      greenTextColor: '#36ff90',
+      blueColor: '#45daff',
       lineColor: 'white',
       hamburgerColor: 'brightness(100%)'
    },
@@ -19,17 +19,11 @@ var themes = [
       textColor: 'white',
       yellowColor: 'rgb(238, 241, 35)',
       greenColor: '#52fb9e',
+      greenTextColor: '#2de47f',
+      darkGreenColor: '#36a568',
+      blueColor: 'rgb(99, 202, 236)',
       lineColor: 'white',
       hamburgerColor: 'brightness(100%)'
-   }, {
-      name: 'white',
-      bodyColor: 'white',
-      contrastingBodyColor: 'rgb(200,200,200)',
-      textColor: 'rgb(56, 56, 56)',
-      yellowColor: 'rgb(196, 199, 0)',
-      greenColor: '#0bdc12',
-      lineColor: 'black',
-      hamburgerColor: 'brightness(30%)'
    },
 ]
 export default themes

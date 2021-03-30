@@ -24,6 +24,7 @@ export default function HamburgerMenu(props) {
             </div>}
          <button onClick={() => props.toggle('renChatInfo')} >Chat Info</button><br />
          <button onClick={() => props.toggle('renSettings')} >Settings</button><br />
+         <button onClick={() => props.toggle('renYourInvites')}>Your Invites</button><br />
          <button onClick={() => logout()}>Logout</button><br />
          <div className="links">
             <a href="/home">Home</a>

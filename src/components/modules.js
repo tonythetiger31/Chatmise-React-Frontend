@@ -13,7 +13,8 @@ function useRender() {
       renTobBar: true,
       renTextUi: true,
       renChatInfo: false,
-      renInviteMenu: false
+      renInviteMenu: false,
+      renYourInvites: false
    })
    const toggleHamburgerMenu = () => {
       setRender(prevState => {

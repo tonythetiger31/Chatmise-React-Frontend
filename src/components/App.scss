@@ -2,9 +2,12 @@
    --bodyColor: rgb(20, 20, 20);
    --contrastingBodyColor: rgb(30, 30, 30);
    --textColor: white;
+   --contrastingTextColor: black;
    --yellowColor: rgb(196, 199, 0);
-   --greenColor: #52fb9e;
+   --greenColor: #36ff90;
+   --greenTextColor:#36a568 ;
    --darkGreenColor: #36a568;
+   --blueColor: #45daff;
    --lineColor: white;
    --hamburgerColor: brightness(100%);
 }
@@ -27,10 +30,79 @@ body {
    border-radius: 2px;
 }
 
+
+@mixin exitIcon {
+   user-select: none;
+   position: absolute;
+   right: 0;
+   top: 0;
+   cursor: pointer;
+   content: url("../resources/exit.svg");
+   height: 50px;
+   transition: 0.2s;
+   filter: var(--hamburgerColor);
+   &:hover {
+      opacity: 0.8;
+   }
+}
+
 .mainUi {
    height: 100vh;
    width: 100vw;
    display: flex;
+   font-family: 'Roboto', sans-serif;
+
+   .YourInvites{
+      display: block;
+      position: fixed;
+      padding: 50px 100px 150px 100px;
+      text-align: center;
+      border-radius: 17px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      background-color: var(--bodyColor);
+      color: var(--textColor);
+      a{
+         @include exitIcon;
+      }
+      .title{
+         font-size: 40px;
+         margin-bottom: 30px;
+      }
+      .individualInvite{
+         padding:3px;
+         margin-bottom: 2px;
+         font-size: 19px;
+         background-color:var(--contrastingBodyColor);
+         @mixin acceptDeclineButton {
+            border: none;
+            font-size: inherit;
+            font-family: inherit;
+            transition:0.13s;
+            cursor: pointer;
+         }
+         .accept{
+            @include acceptDeclineButton;
+            background-color: var(--greenColor);
+            margin-left:5px;
+            &:hover{
+               background-color: var(--darkGreenColor);
+               color: var(--textColor);
+            }
+         }
+         .decline{
+            @include acceptDeclineButton;
+            background-color: rgb(187, 42, 42);
+            color: var(--textColor);
+            &:hover{
+               background-color: rgb(129, 31, 31);
+            }
+         }
+      }
+   }
+
    .CreateChat {
       display: block;
       position: fixed;
@@ -43,19 +115,8 @@ body {
       z-index: 1;
       background-color: var(--bodyColor);
       color: var(--textColor);
-      font-family: Arial, Helvetica, sans-serif;
       a {
-         user-select: none;
-         position: absolute;
-         right: 0;
-         top: 0;
-         cursor: pointer;
-         content: url("../resources/exit.svg");
-         height: 50px;
-         transition: 0.2s;
-         &:hover {
-            opacity: 0.8;
-         }
+         @include exitIcon;
       }
       .title {
          font-size: 40px;
@@ -66,7 +127,7 @@ body {
          font-size: 25px;
          cursor: pointer;
          background-color: var(--greenColor);
-         color: var(--bodyColor);
+         color: var(--contrastingTextColor);
          transition: 0.1s;
          border: none;
          border-radius: 8px;
@@ -92,7 +153,6 @@ body {
       border-radius: 15px;
       text-align: center;
       color: var(--textColor);
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 30px;
       z-index: 2;
       top: 50%;
@@ -119,19 +179,8 @@ body {
       transform: translate(-50%, -50%);
       padding: 50px 100px 150px 100px;
       border-radius: 17px;
-      font-family: Arial, Helvetica, sans-serif;
       a {
-         user-select: none;
-         position: absolute;
-         right: 0;
-         top: 0;
-         cursor: pointer;
-         content: url("../resources/exit.svg");
-         height: 50px;
-         transition: 0.2s;
-         &:hover {
-            opacity: 0.8;
-         }
+         @include exitIcon;
       }
       .title {
          font-size: 40px;
@@ -152,20 +201,9 @@ body {
       transform: translate(-50%, -50%);
       padding: 50px 100px 150px 100px;
       background-color: var(--contrastingBodyColor);
-      font-family: Arial, Helvetica, sans-serif;
       text-align: center;
-      a {
-         user-select: none;
-         position: absolute;
-         right: 0;
-         top: 0;
-         cursor: pointer;
-         content: url("../resources/exit.svg");
-         height: 50px;
-         transition: 0.2s;
-         &:hover {
-            opacity: 0.8;
-         }
+      a{
+         @include exitIcon;
       }
       .title {
          color: var(--textColor);
@@ -173,17 +211,18 @@ body {
          margin-bottom: 30px;
       }
       div {
-         color: var(--yellowColor);
+         color: var(--textColor);
          font-size: 30px;
       }
       select {
+         font-family: inherit;
          margin-top: 10px;
          font-size: 25px;
          cursor: pointer;
       }
    }
    .HamburgerMenu {
-      font-family: Arial, Helvetica, sans-serif;
+       
       background-color: var(--bodyColor);
       display: block;
       position: absolute;
@@ -198,8 +237,9 @@ body {
          font-size: 30px;
       }
       button {
+         font-family: inherit;
          text-decoration: none;
-         color: black;
+         color: var(--contrastingTextColor);
          margin: 10px 0 10px 0;
          text-align: center;
          outline: none;
@@ -211,24 +251,24 @@ body {
          border-radius: 5px;
          padding: 3px 5px 3px 5px;
          background-color: var(--greenColor);
-         font-family: Arial, Helvetica, sans-serif;
+          
          width: 200px;
          &:hover {
             background-color: var(--darkGreenColor);
             margin: 3px 0 3px 0;
             padding: 10px;
-            color: white;
+            color: var(--textColor);
          }
       }
       .links {
          margin: 20px 0 0 0;
          pre {
             display: inline;
-            color: white;
+            color: var(--textColor);
             font-size: 20px;
          }
          a {
-            color: white;
+            color: var(--textColor);
             font-size: 20px;
          }
       }
@@ -244,19 +284,9 @@ body {
       transform: translate(-50%, -50%);
       padding: 50px 100px 150px 100px;
       border-radius: 17px;
-      font-family: Arial, Helvetica, sans-serif;
+       
       a {
-         user-select: none;
-         position: absolute;
-         right: 0;
-         top: 0;
-         cursor: pointer;
-         content: url("../resources/exit.svg");
-         height: 50px;
-         transition: 0.2s;
-         &:hover {
-            opacity: 0.8;
-         }
+         @include exitIcon;
       }
       .title {
          font-size: 35px;
@@ -295,7 +325,7 @@ body {
       background-color: var(--contrastingBodyColor);
       color: var(--textColor);
       overflow: auto;
-      font-family: Arial, Helvetica, sans-serif;
+       
       font-size: 30px;
       text-align: center;
       .topBar {
@@ -338,7 +368,7 @@ body {
          width: 100%;
          color: var(--textColor);
          background-color: var(--contrastingBodyColor);
-         font-family: Arial, Helvetica, sans-serif;
+          
          text-align: center;
          div {
             user-select: none;
@@ -351,6 +381,7 @@ body {
             right: 0;
             cursor: pointer;
             content: url("../resources/hamburger.svg");
+            filter: var(--hamburgerColor);
             height: inherit;
             transition: 0.2s;
             &:hover {
@@ -370,7 +401,7 @@ body {
             height: calc(100% - 90px);
             width: 100%;
 
-            .individualMessage {
+            @mixin message {
                position: static;
                text-align: left;
                word-wrap: break-word;
@@ -381,8 +412,7 @@ body {
                border-color: var(--lineColor) !important;
                margin: 0;
                font-size: 30px;
-               color: var(--greenColor);
-               font-family: Arial, Helvetica, sans-serif;
+               
                .info {
                   display: block;
                   line-height: 30px;
@@ -393,12 +423,20 @@ body {
                   .time {
                      line-height: 25px;
                      display: inline-block;
-                     color: var(--textColor);
+                     color: inherit;
                      font-size: 15px;
                      vertical-align: bottom;
                      margin-left: 0.5em;
                   }
                }
+            }
+            .yourMessage{
+               @include message;
+               color: var(--blueColor);
+            }
+            .othersMessage{
+               @include message;
+               color: var(--greenTextColor)
             }
          }
          .messageInputs {
@@ -413,6 +451,7 @@ body {
             margin: 0;
             z-index: 0;
             textarea {
+               font-family: inherit;
                outline: none;
                color: var(--textColor);
                background-color: var(--bodyColor);
@@ -424,7 +463,6 @@ body {
                font-size: 30px;
                resize: none;
                padding: 0px 2px 0px 15px;
-               font-family: Arial, Helvetica, sans-serif;
                border: none;
             }
             button {
@@ -436,7 +474,7 @@ body {
                position: static;
                font-size: 30px;
                line-height: 1em;
-               font-family: Arial, Helvetica, sans-serif;
+                
                border: none;
                cursor: pointer;
             }
@@ -502,11 +540,8 @@ body {
          top: 40px;
          box-shadow: none;
          .exitButton {
-            position: absolute;
-            top: 0;
-            right: 0;
+            @include exitIcon;
             height: 40px;
-            content: url("../resources/exit.svg");
          }
       }
       .ChatMenu {

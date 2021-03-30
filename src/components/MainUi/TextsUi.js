@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react'
+import validator from 'validator'
 export default function TextsUi(props) {
    var textInputRef = useRef(null),
       messageViewRef = useRef(null)
@@ -8,7 +9,7 @@ export default function TextsUi(props) {
       oldProps = props.data
       messageViewRef.current.lastChild.scrollIntoView();
       textInputRef.current.focus()
-   },[])
+   }, [])
    useEffect(() => {
       if (props.data !== oldProps &&
          props.data[0] === oldProps[0]
@@ -23,15 +24,15 @@ export default function TextsUi(props) {
       } else {//sameProps
          messageViewRef.current.lastChild.scrollIntoView();
       }
-   },[props])
+   }, [props])
 
    function handleNewMessage() {
       const checkIfInputIsEmpty = () => {
-         if (textInputRef.current.value !== "") {
-            sendMessage()
-         } else {
-            textInputRef.current.placeholder = "that was an empty message :("
-         }
+         (textInputRef.current.value === "")
+            ? textInputRef.current.placeholder = "that was an empty message :("
+            : (validator.contains(textInputRef.current.value, '\\'))
+               ? alert('please don\'t use backslashes')
+               : sendMessage()
       }
       const sendMessage = () => {
          textInputRef.current.focus()
@@ -52,6 +53,7 @@ export default function TextsUi(props) {
          event.preventDefault();
       };
    }
+
    function getNormalTimeFromUTC(thisDate) {
       var pmOrAm
       var hoursNon24
@@ -83,13 +85,13 @@ export default function TextsUi(props) {
 
    const mapedTexts = props.data.map((element, i) => {
       var senderName = element.sender
-      var textColor = { color: "#52fb9e" }
+      var className = "othersMessage"
       if (element.sender === props.username) {
          senderName = "you"
-         textColor = { color: "#63caec" }
+         className = "yourMessage"
       }
       return (
-         <div className="individualMessage" key={i} style={textColor} >
+         <div className={className} key={i} >
             <div className="info">
                <span className="sender">{senderName + " - "}</span>
                <span className="time">{"  " + getNormalTimeFromUTC(element.time)}</span>
