@@ -1,0 +1,161 @@
+@media only screen and (max-device-width: 1300px) and (orientation: portrait) {
+	.mainUi {
+		.chatMenu {
+			width: 300px;
+		}
+		.rightContainer {
+			width: calc(100% - 300px);
+			.TextsUi .messageInputs {
+				textarea {
+					width: 80%;
+				}
+				button {
+					display: block;
+					width: 20%;
+				}
+			}
+		}
+	}
+}
+@media only screen and (max-device-width: 1400px) and (orientation: landscape) {
+	.mainUi {
+		.chatMenu {
+			width: 400px;
+		}
+		.rightContainer {
+			width: calc(100% - 400px);
+			.TextsUi {
+				.messageInputs {
+					textarea {
+						width: 80%;
+					}
+					button {
+						display: block;
+						width: 20%;
+					}
+				}
+			}
+		}
+	}
+}
+@media only screen and (max-device-width: 760px) {
+	html,
+	body {
+		overflow-y: visible;
+		overflow-x: visible;
+	}
+	.mainUi {
+		.Settings a {
+			height: 40px;
+		}
+		.HamburgerMenu {
+			position: static;
+			padding: 50px 0 0 0;
+			top: 40px;
+			box-shadow: none;
+			.exitButton {
+				@include exitIcon;
+				height: 40px;
+			}
+		}
+		.ChatMenu {
+			width: 100%;
+			.topBar {
+				background-color: var(--bodyColor);
+				display: block;
+				font-size: 30px;
+				height: 40px;
+				.exitButton {
+					position: absolute;
+					top: 0;
+					left: 0;
+					height: 40px;
+					content: url('../resources/exit.svg');
+				}
+			}
+			.chats {
+				overflow: auto;
+				height: calc(100% - 40px);
+				.individualChat {
+					padding-top: 7px;
+					margin-bottom: 7px;
+					user-select: none;
+					-webkit-tap-highlight-color: transparent;
+					border: solid var(--lineColor);
+					border-width: 1px 0 0 0;
+					border-radius: 3px;
+               &:first-child{
+                  border-width: 0;
+               }
+					&:last-child {
+						border-width: 1px 0;
+						padding: 7px 0;
+						margin: 0px;
+					}
+				}
+			}
+		}
+		.InviteMenu,
+		.CreateChat {
+			padding: 20px 40px 40px 40px;
+		}
+		.rightContainer {
+			width: 100%;
+			.TopBar {
+				position: fixed;
+				top: 0;
+				height: 40px;
+				div {
+					font-size: 30px;
+				}
+				.chatButton {
+					content: url('../resources/chatButton.svg');
+					position: absolute;
+					left: 0;
+				}
+				a {
+					-webkit-tap-highlight-color: transparent;
+					height: inherit;
+				}
+			}
+			.TextsUi {
+				height: 100%;
+				.messagesView {
+					height: calc(100% - 110px);
+					padding-top: 40px;
+
+					.yourMessage,
+					.othersMessage {
+						padding: 5px 20px 5px 20px;
+						font-size: 20px;
+
+						line-height: 20px;
+						.info .sender {
+							font-size: 13px;
+						}
+						.info .time {
+							color: var(--textColor);
+							line-height: 26px;
+							font-size: 10px;
+							margin-left: 0.5em;
+						}
+					}
+				}
+				.messageInputs {
+					height: 70px;
+					textarea {
+						width: 80%;
+						font-size: 22px;
+					}
+					button {
+						display: block;
+						-webkit-tap-highlight-color: transparent;
+						outline: none;
+						width: 20%;
+						font-size: 22px;
+					}
+				}
+			}
+		}
+	}
+}

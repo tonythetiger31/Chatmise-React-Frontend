@@ -1,0 +1,99 @@
+.rightContainer {
+	height: 100%;
+	width: calc(100% - 400px);
+	display: block;
+	overflow-y: visible;
+	overflow-x: hidden;
+	.TopBar {
+		height: 50px;
+		width: 100%;
+		color: var(--textColor);
+		background-color: var(--contrastingBodyColor);
+
+		text-align: center;
+		div {
+			user-select: none;
+			display: inline;
+			font-size: 40px;
+		}
+		.hamburgerButton {
+			user-select: none;
+			position: absolute;
+			right: 0;
+			cursor: pointer;
+			content: url('../../resources/hamburger.svg');
+			filter: var(--hamburgerColor);
+			height: inherit;
+			transition: 0.2s;
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+
+	.TextsUi {
+		height: calc(100% - 50px);
+		width: 100%;
+		.messagesView {
+			overflow-x: hidden;
+			overflow-y: auto;
+			position: static;
+			margin: 0;
+			height: calc(100% - 90px);
+			width: 100%;
+
+			.yourMessage,.othersMessage {
+				@include message;
+				color: var(--blueColor);
+            .info .time {
+               color: var(--textColor);
+            }
+			}
+			.othersMessage {
+				color: var(--greenTextColor);
+            .info .time {
+               color: var(--textColor);
+            }
+			}
+		}
+		.messageInputs {
+			background-color: var(--bodyColor);
+			bottom: 0;
+			right: 0;
+			left: 0;
+			display: flex;
+			position: static;
+			font-size: 30px;
+			height: 90px;
+			margin: 0;
+			z-index: 0;
+			textarea {
+				font-family: inherit;
+				outline: none;
+				color: var(--textColor);
+				background-color: var(--bodyColor);
+				display: inline-block;
+				margin: 0;
+				height: 100%;
+				width: 100%;
+				position: static;
+				font-size: 30px;
+				resize: none;
+				padding: 0px 2px 0px 15px;
+				border: none;
+			}
+			button {
+				display: none;
+				color: var(--textColor);
+				background-color: var(--bodyColor);
+				margin: 0;
+				height: 100%;
+				position: static;
+				font-size: 30px;
+				line-height: 1em;
+				border: none;
+				cursor: pointer;
+			}
+		}
+	}
+}

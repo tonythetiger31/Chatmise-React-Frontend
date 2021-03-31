@@ -1,0 +1,52 @@
+@mixin exitIcon {
+	user-select: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+	cursor: pointer;
+	content: url('../resources/exit.svg');
+	height: 50px;
+	transition: 0.2s;
+	filter: var(--hamburgerColor);
+	&:hover {
+		opacity: 0.8;
+	}
+}
+@mixin message {
+	position: static;
+	text-align: left;
+	word-wrap: break-word;
+	padding: 15px 40px 15px 40px;
+	border: solid;
+	border-width: 0 0 1px 0;
+	border-radius: 8px;
+	border-color: var(--contrastingBodyColor) !important;
+	margin: 0;
+	font-size: 30px;
+
+	.info {
+		display: block;
+		line-height: 30px;
+      
+		.sender {
+			display: inline-block;
+			font-size: 20px;
+		}
+		.time {
+         color: var(--textColor);
+			line-height: 25px;
+			display: inline-block;
+			color: inherit;
+			font-size: 15px;
+			vertical-align: bottom;
+			margin-left: 0.5em;
+		}
+	}
+}
+@mixin acceptDeclineButton {
+	border: none;
+	font-size: inherit;
+	font-family: inherit;
+	transition: 0.13s;
+	cursor: pointer;
+}

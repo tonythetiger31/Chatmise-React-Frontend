@@ -1,0 +1,205 @@
+.YourInvites {
+	display: block;
+	position: fixed;
+	padding: 30px 70px 70px 70px;
+	text-align: center;
+	border-radius: $borderRadius;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+	background-color: var(--contrastingBodyColor);
+	color: var(--textColor);
+   box-shadow: -7px 10px 20px 0px #0000006b;
+	a {
+		@include exitIcon;
+	}
+	.title {
+		font-size: 40px;
+		margin-bottom: 20px;
+	}
+	.noInvites {
+		font-size: 20px;
+		text-decoration: underline;
+	}
+	.individualInvite {
+		padding: 3px;
+		margin-bottom: 2px;
+		font-size: 20px;
+		background-color: var(--contrastingBodyColor);
+
+		.accept {
+			@include acceptDeclineButton;
+			background-color: var(--greenColor);
+			margin-left: 5px;
+			&:hover {
+				background-color: var(--darkGreenColor);
+				color: var(--textColor);
+			}
+		}
+		.decline {
+			@include acceptDeclineButton;
+			background-color: rgb(187, 42, 42);
+			color: var(--textColor);
+			&:hover {
+				background-color: rgb(129, 31, 31);
+			}
+		}
+	}
+}
+.CreateChat {
+	display: block;
+	position: fixed;
+	padding: 30px 70px 70px 70px;
+	text-align: center;
+	border-radius: $borderRadius;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+	background-color: var(--contrastingBodyColor);
+	color: var(--textColor);
+   box-shadow: -7px 10px 20px 0px #0000006b;
+	a {
+		@include exitIcon;
+	}
+	.title {
+		font-size: 40px;
+		margin-bottom: 30px;
+	}
+	.Create {
+		font-size: 25px;
+		cursor: pointer;
+		background-color: var(--greenColor);
+		color: var(--contrastingTextColor);
+		transition: 0.2s;
+		border: none;
+		outline: none;
+		&:hover {
+			background-color: var(--darkGreenColor);
+			color: var(--textColor);
+		}
+	}
+	input {
+		color: var(--greenColor);
+		border: none;
+		outline: none;
+		font-size: 25px;
+		background-color: var(--bodyColor);
+	}
+}
+.ChatInfo {
+	z-index: 1;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	background-color: var(--contrastingBodyColor);
+	text-align: center;
+	color: var(--textColor);
+	transform: translate(-50%, -50%);
+	padding: 30px 70px 70px 70px;
+	border-radius: $borderRadius;
+   box-shadow: -7px 10px 20px 0px #0000006b;
+	a {
+		@include exitIcon;
+	}
+	.title {
+		font-size: 40px;
+		margin-bottom: 20px;
+	}
+	.subTitle {
+		font-size: 25px;
+		margin-bottom: 5px;
+	}
+	.adminInfo {
+		font-size: 20px;
+		margin-left: 5px;
+		color: var(--greenColor);
+	}
+	.info {
+		font-size: 20px;
+		color: var(--greenColor);
+	}
+}
+.Settings {
+	opacity: 1;
+	position: fixed;
+	z-index: 1;
+	border-radius: $borderRadius;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 30px 70px 70px 70px;
+	background-color: var(--contrastingBodyColor);
+	text-align: center;
+   box-shadow: -7px 10px 20px 0px #0000006b;
+	a {
+		@include exitIcon;
+	}
+	.title {
+		color: var(--textColor);
+		font-size: 40px;
+		margin-bottom: 20px;
+	}
+	div {
+		color: var(--textColor);
+		font-size: 20px;
+	}
+	select {
+		outline: none;
+		font-family: inherit;
+		margin-top: 5px;
+		font-size: 25px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+}
+.InviteMenu {
+	z-index: 1;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	background-color: var(--contrastingBodyColor);
+	text-align: center;
+	color: var(--textColor);
+	transform: translate(-50%, -50%);
+	padding: 30px 70px 70px 70px;
+	border-radius: $borderRadius;
+   box-shadow: -7px 10px 20px 0px #0000006b;
+	a {
+		@include exitIcon;
+	}
+	.title {
+		font-size: 40px;
+		margin-bottom: 20px;
+	}
+	.subTitle {
+		font-size: 20px;
+		margin-bottom: 5px;
+	}
+	input {
+		color: var(--greenColor);
+		border: none;
+		outline: none;
+		font-size: 25px;
+		background-color: var(--bodyColor);
+	}
+	button {
+		outline: none;
+		border: none;
+		font-size: 25px;
+		background-color: var(--greenColor);
+		cursor: pointer;
+		transition: 0.3s;
+		&:hover {
+			color: var(--textColor);
+			background-color: var(--darkGreenColor);
+		}
+	}
+	.message {
+		font-size: 25px;
+		background-color: rgb(187, 42, 42);
+		color: var(--textColor);
+		border: none;
+	}
+}

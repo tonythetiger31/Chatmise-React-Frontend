@@ -13,7 +13,7 @@ import InviteMenu from './mainUi/InviteMenu.js'
 import YourInvites from './mainUi/YourInvites.js'
 
 //other files
-import css from './App.scss'
+import css from '../scss/App.scss'
 import themes from './themes.js'
 import ping from '../resources/ping.mp3'
 import * as modules from './modules.js'
@@ -41,12 +41,6 @@ export default function MainUi() {
    const audio = new Audio(ping)
 
    useEffect(() => {
-      window.screen.orientation.addEventListener("change", orientation => {
-         if (window.screen.orientation.angle !== 0) {
-            alert("this app works best in portrait mode")
-         }
-      });
-
       socket.on('allTexts', (body) => {
          if (body !== "invalid credentials") {
             setAppData(body)
