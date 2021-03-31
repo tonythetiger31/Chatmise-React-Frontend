@@ -11,6 +11,7 @@
    --lineColor: white;
    --hamburgerColor: brightness(100%);
 }
+$borderRadius: 15px;
 html {
    overflow-y: hidden;
    overflow-x: visible;
@@ -55,9 +56,9 @@ body {
    .YourInvites{
       display: block;
       position: fixed;
-      padding: 50px 100px 150px 100px;
+      padding: 30px 70px 70px 70px;
       text-align: center;
-      border-radius: 17px;
+      border-radius: $borderRadius;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -69,12 +70,16 @@ body {
       }
       .title{
          font-size: 40px;
-         margin-bottom: 30px;
+         margin-bottom: 20px;
+      }
+      .noInvites{
+         font-size: 20px;
+         text-decoration:underline;
       }
       .individualInvite{
          padding:3px;
          margin-bottom: 2px;
-         font-size: 19px;
+         font-size: 20px;
          background-color:var(--contrastingBodyColor);
          @mixin acceptDeclineButton {
             border: none;
@@ -106,14 +111,14 @@ body {
    .CreateChat {
       display: block;
       position: fixed;
-      padding: 50px 100px 150px 100px;
+      padding: 30px 70px 70px 70px;
       text-align: center;
-      border-radius: 17px;
+      border-radius: $borderRadius;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 1;
-      background-color: var(--bodyColor);
+      background-color: var(--contrastingBodyColor);
       color: var(--textColor);
       a {
          @include exitIcon;
@@ -123,25 +128,24 @@ body {
          margin-bottom: 30px;
       }
       .Create {
-         padding: 3px 40px 3px 40px;
          font-size: 25px;
          cursor: pointer;
          background-color: var(--greenColor);
          color: var(--contrastingTextColor);
-         transition: 0.1s;
+         transition: 0.2s;
          border: none;
-         border-radius: 8px;
          outline: none;
          &:hover {
-            padding-left: 70px;
-            padding-right: 70px;
             background-color: var(--darkGreenColor);
             color: var(--textColor);
          }
       }
       input {
-         font-size: 20px;
-         margin-bottom: 20px;
+         color: var(--greenColor);
+         border: none;
+         outline: none;
+         font-size: 25px;
+         background-color: var(--bodyColor);
       }
    }
    .internetWarningPopUp {
@@ -150,7 +154,7 @@ body {
       background-color: var(--contrastingBodyColor);
       border: solid var(--lineColor);
       border-width: 1px;
-      border-radius: 15px;
+      border-radius: 10px;
       text-align: center;
       color: var(--textColor);
       font-size: 30px;
@@ -167,6 +171,10 @@ body {
       width: 100vw;
       background-color: black;
       opacity: 0.4;
+      transition: .2s;
+      &:hover{
+         opacity: 0.3;
+      }
    }
    .ChatInfo {
       z-index: 1;
@@ -177,8 +185,8 @@ body {
       text-align: center;
       color: var(--textColor);
       transform: translate(-50%, -50%);
-      padding: 50px 100px 150px 100px;
-      border-radius: 17px;
+      padding: 30px 70px 70px 70px;
+      border-radius: $borderRadius;
       a {
          @include exitIcon;
       }
@@ -188,18 +196,27 @@ body {
       }
       .subTitle {
          font-size: 25px;
-         margin-bottom: 10px;
+         margin-bottom: 5px;
+      }
+      .adminInfo{
+         font-size:20px;
+         margin-left:5px;
+         color:var(--greenColor)
+      }
+      .info{
+         font-size:20px;
+         color:var(--greenColor)
       }
    }
    .Settings {
       opacity: 1;
       position: fixed;
       z-index: 1;
-      border-radius: 17px;
+      border-radius: $borderRadius;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      padding: 50px 100px 150px 100px;
+      padding: 30px 70px 70px 70px;
       background-color: var(--contrastingBodyColor);
       text-align: center;
       a{
@@ -208,16 +225,18 @@ body {
       .title {
          color: var(--textColor);
          font-size: 40px;
-         margin-bottom: 30px;
+         margin-bottom: 20px;
       }
       div {
          color: var(--textColor);
-         font-size: 30px;
+         font-size: 20px;
       }
       select {
+         outline: none;
          font-family: inherit;
-         margin-top: 10px;
+         margin-top: 5px;
          font-size: 25px;
+         border-radius: 5px;
          cursor: pointer;
       }
    }
@@ -231,6 +250,7 @@ body {
       text-align: center;
       padding: 50px;
       box-shadow: -15px 16px 20px 0px #00000024;
+      border-radius:0 0 0 $borderRadius;
       .youAreLoggedInAs {
          margin: 20px 0 20px 0;
          color: var(--yellowColor);
@@ -282,15 +302,19 @@ body {
       text-align: center;
       color: var(--textColor);
       transform: translate(-50%, -50%);
-      padding: 50px 100px 150px 100px;
-      border-radius: 17px;
+      padding: 30px 70px 70px 70px;
+      border-radius: $borderRadius;
        
       a {
          @include exitIcon;
       }
       .title {
-         font-size: 35px;
+         font-size: 40px;
          margin-bottom: 20px;
+      }
+      .subTitle{
+         font-size:20px;
+         margin-bottom:5px;
       }
       input{
          color: var(--greenColor);
@@ -429,6 +453,7 @@ body {
                      margin-left: 0.5em;
                   }
                }
+
             }
             .yourMessage{
                @include message;
@@ -529,7 +554,6 @@ body {
    }
    .mainUi {
       .Settings {
-         padding: 50px 100px 100px 100px;
          a {
             height: 40px;
          }
@@ -568,6 +592,12 @@ body {
             }
          }
       }
+      .InviteMenu{
+         padding: 20px 40px 40px 40px;
+      }
+      .CreateChat{
+         padding: 20px 40px 40px 40px;
+      }
       .rightContainer {
          width: 100%;
          .TopBar {
@@ -592,7 +622,8 @@ body {
             .messagesView {
                height: calc(100% - 110px);
                padding-top: 40px;
-               .individualMessage {
+
+               .yourMessage{
                   padding: 5px 20px 5px 20px;
                   font-size: 20px;
                   .info {
@@ -603,9 +634,26 @@ body {
                      .time {
                         line-height: 16px;
                         font-size: 10px;
+                        margin-left: 0.5em;
                      }
                   }
                }
+               .othersMessage{
+                  padding: 5px 20px 5px 20px;
+                  font-size: 20px;
+                  .info {
+                     line-height: 20px;
+                     .sender {
+                        font-size: 13px;
+                     }
+                     .time {
+                        line-height: 16px;
+                        font-size: 10px;
+                        margin-left: 0.5em;
+                     }
+                  }
+               }
+
             }
             .messageInputs {
                height: 70px;

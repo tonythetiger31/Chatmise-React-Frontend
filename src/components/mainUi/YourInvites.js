@@ -50,7 +50,8 @@ return (
    <div className="YourInvites">
       <a onClick={() => props.toggle('renYourInvites')} />
       <div className="title">Your Invites</div>
-      {invites}
+      {invites.length !== 0 ? invites: 
+      <div className="noInvites">you have no invites</div>}
    </div>
 )
 }

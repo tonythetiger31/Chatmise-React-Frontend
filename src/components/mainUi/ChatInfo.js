@@ -12,10 +12,13 @@ export default function ChatInfo(props) {
       <div className="ChatInfo">
          <a type='button' onClick={() => props.toggle('renChatInfo')}></a>
          <div className="title">Chat Info</div>
-         <div className="subTitle">admin</div>
-         {isChatAdmin ? "You" : props.admin}
+         <div className="subTitle">admin: 
+            <span className="adminInfo">
+               {isChatAdmin ? "You" : props.admin}
+            </span>
+         </div>
          <div className="subTitle">members</div>
-         {members}
+         <div className="info">{members}</div>
       </div>
    )
 }

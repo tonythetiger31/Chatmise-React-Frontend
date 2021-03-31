@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import socket from '../socket'
 import validator from 'validator'
 
@@ -35,6 +35,14 @@ export default function CreateChat(props) {
          })
       }
    }
+   useEffect(() => {
+      chatNameRef.current.focus();
+   }, [])
+   function stopSpaces(event) {
+      if (event.keyCode == 32) {
+         event.preventDefault();
+      };
+   }
    return (
       <div
          className="CreateChat">
@@ -48,15 +56,17 @@ export default function CreateChat(props) {
             <input
                placeholder="Chat Name"
                maxLength="10"
+               minLength="4"
                ref={chatNameRef}
                required
-            /><br />
+               size="15"
+               onKeyDown={(event) => { stopSpaces(event) }}
+            />
             <button
                ref={buttonRef}
                type="submit"
                className="Create"
-            >
-               CREATE</button>
+            >Create</button>
          </form>
       </div >
    )

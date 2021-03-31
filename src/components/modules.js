@@ -3,15 +3,15 @@ import React, { useState } from 'react'
 function useRender() {
    var isMobile = window.screen.width <= 760 && window.screen.orientation.angle === 0
    const [render, setRender] = useState({
-      renHamburgerMenu: false,
-      renSettings: false,
       renInternetWarning: false,
-      renGrayBackground: false,
       renChatMenu: true,
-      renCreateChat: false,
       renRightContainer: isMobile ? false : true,
       renTobBar: true,
       renTextUi: true,
+      renGrayBackground: false,
+      renHamburgerMenu: false,
+      renSettings: false,
+      renCreateChat: false,
       renChatInfo: false,
       renInviteMenu: false,
       renYourInvites: false
@@ -44,7 +44,7 @@ function useRender() {
          return bools
       })
    }
-   function toggleComponentRender(component){
+   function toggleComponentRender(component) {
       setRender(prevState => {
          return {
             ...render,
@@ -62,9 +62,22 @@ function useRender() {
          }
       })
    }
+   const exitPopUp = () => {
+      setRender(prevState => {
+         return {
+            ...prevState,
+            renGrayBackground: false,
+            renSettings: false,
+            renCreateChat: false,
+            renChatInfo: false,
+            renInviteMenu: false,
+            renYourInvites: false
+         }
+      })
+   }
    return [
       render, setRender, toggleHamburgerMenu,
-       toggleChatMenu, toggleComponentRender
+      toggleChatMenu, toggleComponentRender, exitPopUp
    ]
 }
 

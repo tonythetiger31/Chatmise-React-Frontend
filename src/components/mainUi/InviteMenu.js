@@ -61,11 +61,14 @@ export default function InviteMenu(props) {
          })
       }
    }
-
+   useEffect(() => {
+      input.current.focus()
+   },[])
    return (
       <div className="InviteMenu">
          <a type='button' onClick={() => props.toggle('renInviteMenu')}></a>
-         <div className="title">Invite others <br /> to this chat</div>
+         <div className="title">Invite</div>
+         <div className="subTitle">Invite your friends to this chat</div>
          <form className="invite"
             onSubmit={event => {
                event.preventDefault()

@@ -34,7 +34,7 @@ export default function MainUi() {
    })
    const [
       render, setRender, toggleHamburgerMenu
-      , toggleChatMenu, toggleComponent
+      , toggleChatMenu, toggleComponent, exitPopUp
    ] = modules.useRender()
    const [currentChat, setCurrentChat] = useState(0)
    const [theme, setTheme] = useState(1)
@@ -134,7 +134,10 @@ export default function MainUi() {
                Connection error, please check your internet
             </div>}
          {render.renGrayBackground &&
-            <div className="grayBackground" />}
+            <div
+               className="grayBackground"
+               onClick={() => exitPopUp()}
+            />}
          {render.renSettings &&
             <Settings
                toggle={toggleComponent}
