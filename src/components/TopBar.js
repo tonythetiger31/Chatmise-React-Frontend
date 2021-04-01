@@ -1,6 +1,6 @@
 import React from "react"
-import exitSvg from '../../resources/exit.svg'
-import hamburgerSvg from '../../resources/hamburger.svg'
+import exitSvg from '../resources/exit.svg'
+import hamburgerSvg from '../resources/hamburger.svg'
 
 export default function TopBar(props) {
    var style = { content: `url(${hamburgerSvg})` }
