@@ -9,6 +9,7 @@
 	--darkGreenColor: #36a568;
 	--blueColor: #45daff;
 	--lineColor: white;
+   --placeholderColor: gray;
 	--hamburgerColor: brightness(100%);
 }
 $borderRadius: 15px;
@@ -34,7 +35,7 @@ html, body {
 
 @import 'mixins';
 
-.mainUi {
+.App {
 	height: 100vh;
 	width: 100vw;
 	display: flex;
@@ -43,7 +44,7 @@ html, body {
 	/*pop up components*/
 	@import './components/popUps';
 
-	.internetWarningPopUp {
+	.InternetWarning {
 		display: block;
 		position: fixed;
 		background-color: var(--contrastingBodyColor);
@@ -59,7 +60,7 @@ html, body {
 		transform: translate(-50%, -50%);
 		padding: 20px;
 	}
-	.grayBackground {
+	.GrayBackground {
 		z-index: 1;
 		position: fixed;
 		height: 100vh;

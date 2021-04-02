@@ -86,6 +86,9 @@
 		outline: none;
 		font-size: 25px;
 		background-color: var(--bodyColor);
+      &::placeholder{
+         color: var(--placeholderColor);
+      }
 	}
 }
 .ChatInfo {
@@ -166,6 +169,7 @@
 	padding: 30px 70px 70px 70px;
 	border-radius: $borderRadius;
    box-shadow: -7px 10px 20px 0px #0000006b;
+
 	a {
 		@include exitIcon;
 	}

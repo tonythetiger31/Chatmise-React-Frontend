@@ -25,5 +25,19 @@ var themes = [
       lineColor: 'white',
       hamburgerColor: 'brightness(100%)'
    },
+   {
+      name: 'light gray',
+      bodyColor: '#626262',
+      contrastingBodyColor: '#6e6e6e',
+      textColor: 'white',
+      placeholderColor: '#8d8c8c',
+      yellowColor: 'rgb(238, 241, 35)',
+      greenColor: '#52fb9e',
+      greenTextColor: '#52ff78',
+      darkGreenColor: '#36a568',
+      blueColor: '#65d9ff',
+      lineColor: 'white',
+      hamburgerColor: 'brightness(100%)'
+   }
 ]
 export default themes

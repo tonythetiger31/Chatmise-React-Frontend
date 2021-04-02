@@ -81,6 +81,9 @@
 				resize: none;
 				padding: 0px 2px 0px 15px;
 				border: none;
+            &::placeholder{
+               color: var(--placeholderColor);
+            }
 			}
 			button {
 				display: none;

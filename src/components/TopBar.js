@@ -1,26 +1,29 @@
-import React from "react"
-import exitSvg from '../resources/exit.svg'
-import hamburgerSvg from '../resources/hamburger.svg'
+import React, { useContext } from 'react';
+import exitSvg from '../resources/exit.svg';
+import hamburgerSvg from '../resources/hamburger.svg';
+import { DataContext } from '../index';
 
 export default function TopBar(props) {
-   var style = { content: `url(${hamburgerSvg})` }
-   const conditionalRender = (() => {
-      if (props.renHamburgerMenu) {
-         style = { content: `url(${exitSvg})` }
-      } else {
-         style = { content: `url(${hamburgerSvg})` }
-      }
-   })()
-   return (
-      <div className="TopBar">
-         <a className="chatButton" onClick={() => props.toggleChatMenu()} />
-         <div>{props.data}</div>
-         <a
-            className="hamburgerButton"
-            type="button"
-            onClick={() => { props.toggleHamburgerMenu() }}
-            style={style}
-         />
-      </div>
-   )
+	const { appData, currentChat } = useContext(DataContext);
+
+	var style = { content: `url(${hamburgerSvg})` };
+	const conditionalRender = (() => {
+		props.HamburgerMenu
+			? (style = { content: `url(${exitSvg})` })
+			: (style = { content: `url(${hamburgerSvg})` });
+	})();
+	return (
+		<div className="TopBar">
+			<a className="chatButton" onClick={() => props.toggleChatMenu()} />
+			<div>{appData.chatNames[currentChat]}</div>
+			<a
+				className="hamburgerButton"
+				type="button"
+				onClick={() => {
+					props.toggleHamburgerMenu();
+				}}
+				style={style}
+			/>
+		</div>
+	);
 }
