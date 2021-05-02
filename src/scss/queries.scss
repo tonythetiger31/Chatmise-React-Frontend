@@ -44,7 +44,7 @@
 		overflow-y: visible;
 		overflow-x: visible;
 	}
-	.mainUi {
+	.App {
 		.Settings a {
 			height: 40px;
 		}
@@ -81,7 +81,7 @@
 					margin-bottom: 7px;
 					user-select: none;
 					-webkit-tap-highlight-color: transparent;
-					border: solid var(--lineColor);
+					border: solid var(--textColor);
 					border-width: 1px 0 0 0;
 					border-radius: 3px;
                &:first-child{

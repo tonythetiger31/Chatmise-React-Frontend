@@ -3,13 +3,11 @@
 	--contrastingBodyColor: rgb(30, 30, 30);
 	--textColor: white;
 	--contrastingTextColor: black;
-	--yellowColor: rgb(196, 199, 0);
-	--greenColor: #36ff90;
-	--greenTextColor: #36a568;
-	--darkGreenColor: #36a568;
-	--blueColor: #45daff;
-	--lineColor: white;
+	--othersMessageColor: #36a568;
+	--yourMessageColor: #45daff;
    --placeholderColor: gray;
+	--positiveButtonColor: #36ff90;
+	--positiveButtonHoverColor: #36a568;
 	--hamburgerColor: brightness(100%);
 }
 $borderRadius: 15px;
@@ -48,7 +46,6 @@ html, body {
 		display: block;
 		position: fixed;
 		background-color: var(--contrastingBodyColor);
-		border: solid var(--lineColor);
 		border-width: 1px;
 		border-radius: 10px;
 		text-align: center;
@@ -86,7 +83,7 @@ html, body {
 		border-radius: 0 0 0 $borderRadius;
 		.youAreLoggedInAs {
 			margin: 20px 0 20px 0;
-			color: var(--yellowColor);
+			color: var(--yourMessageColor);
 			font-size: 30px;
 		}
 		button {
@@ -103,11 +100,11 @@ html, body {
 			border: none;
 			border-radius: 5px;
 			padding: 3px 5px 3px 5px;
-			background-color: var(--greenColor);
+			background-color: var(--positiveButtonColor);
 			width: 200px;
 			&:hover {
             box-shadow: -2px 3px 20px 0px #36a5682c;
-				background-color: var(--darkGreenColor);
+				background-color: var(--positiveButtonHoverColor);
 				margin: 3px 0 3px 0;
 				padding: 10px;
 				color: var(--textColor);
@@ -129,11 +126,11 @@ html, body {
 	.ChatMenu {
 		display: block;
 		height: 100%;
-		width: 400px;
+		width: 310px;
 		background-color: var(--contrastingBodyColor);
 		color: var(--textColor);
 		overflow: auto;
-		font-size: 30px;
+		font-size: 26px;
 		text-align: center;
 		.topBar {
 			display: none;
@@ -151,7 +148,7 @@ html, body {
 			outline: none;
 			border: none;
 			background-color: var(--contrastingBodyColor);
-			color: var(--greenColor);
+			color: var(--positiveButtonColor);
 			padding: 0 25px 0 25px;
 			position: absolute;
 			border-radius: 360px;

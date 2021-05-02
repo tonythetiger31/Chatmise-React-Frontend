@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import { socket } from '../../modules';
-import { DataContext } from '../../index';
+import { DataContext,socket } from '../../index';
 
 export default function YourInvites(props) {
 	const { appData, toggleComponent } = useContext(DataContext);

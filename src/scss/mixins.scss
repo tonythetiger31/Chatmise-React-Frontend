@@ -16,13 +16,13 @@
 	position: static;
 	text-align: left;
 	word-wrap: break-word;
-	padding: 15px 40px 15px 40px;
+	padding: 7px 40px;
 	border: solid;
 	border-width: 0 0 1px 0;
 	border-radius: 8px;
 	border-color: var(--contrastingBodyColor) !important;
 	margin: 0;
-	font-size: 30px;
+	font-size: 25px;
 
 	.info {
 		display: block;
@@ -30,14 +30,14 @@
       
 		.sender {
 			display: inline-block;
-			font-size: 20px;
+			font-size: 17px;
 		}
 		.time {
          color: var(--textColor);
-			line-height: 25px;
+			line-height: 27px;
 			display: inline-block;
 			color: inherit;
-			font-size: 15px;
+			font-size: 12px;
 			vertical-align: bottom;
 			margin-left: 0.5em;
 		}

@@ -1,28 +1,32 @@
 import React, { useContext } from 'react';
 import { DataContext } from '../index';
 
-export default function HamburgerMenu() {
-   const {appData, currentChat, toggleComponent, toggleHamburgerMenu} = useContext(DataContext);
+export default function HamburgerMenu(props) {
+	const {
+		appData,
+		currentChat,
+		toggleComponent,
+		toggleHamburgerMenu,
+	} = useContext(DataContext);
 
-   const bugReportURL = 'https://tipsandbugreport.netlify.app/';
+	const bugReportURL = 'https://tipsandbugreport.netlify.app/';
 
 	async function logout() {
-		const options = {
-			method: 'delete',
-		};
-		const response = await fetch('/logout', options);
-		const json = await response.json();
-		window.location.replace('/login');
+		var auth2 = window.gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
+         console.log('User signed out.');
+         props.setReload(false)
+         window.location = '/home';
+		});
 	}
 
 	const isAdmin = appData.username === appData.admins[currentChat];
 	return (
 		<div className="HamburgerMenu">
-			<a
-				className="exitButton"
-				onClick={() => toggleHamburgerMenu()}
-			/>
-			<div className="youAreLoggedInAs">Logged in as {appData.username} </div>
+			<a className="exitButton" onClick={() => toggleHamburgerMenu()} />
+			<div className="youAreLoggedInAs">
+				Logged in as {appData.username}{' '}
+			</div>
 			{isAdmin && (
 				<div>
 					<button onClick={() => toggleComponent('InviteMenu')}>
@@ -42,16 +46,10 @@ export default function HamburgerMenu() {
 			<button onClick={() => logout()}>Logout</button>
 			<br />
 			<div className="links">
-				<a href="/home">Home</a>
+				<a href="/home" onClick={()=>props.setReload(false)}>Home</a>
 				<pre> | </pre>
-				<a href={bugReportURL}>Report Bug</a>
+				<a href={bugReportURL} onClick={()=>props.setReload(false)}>Report Bug</a>
 			</div>
-			{/**
-			 * chatInfo
-			 * settings
-			 * yourInvites
-			 * InviteMenu
-			 */}
 		</div>
 	);
 }

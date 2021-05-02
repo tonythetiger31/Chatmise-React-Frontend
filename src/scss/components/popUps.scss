@@ -30,10 +30,10 @@
 
 		.accept {
 			@include acceptDeclineButton;
-			background-color: var(--greenColor);
+			background-color: var(--positiveButtonColor);
 			margin-left: 5px;
 			&:hover {
-				background-color: var(--darkGreenColor);
+				background-color: var(--positiveButtonHoverColor);
 				color: var(--textColor);
 			}
 		}
@@ -70,18 +70,18 @@
 	.Create {
 		font-size: 25px;
 		cursor: pointer;
-		background-color: var(--greenColor);
+		background-color: var(--positiveButtonColor);
 		color: var(--contrastingTextColor);
 		transition: 0.2s;
 		border: none;
 		outline: none;
 		&:hover {
-			background-color: var(--darkGreenColor);
+			background-color: var(--positiveButtonHoverColor);
 			color: var(--textColor);
 		}
 	}
 	input {
-		color: var(--greenColor);
+		color: var(--positiveButtonColor);
 		border: none;
 		outline: none;
 		font-size: 25px;
@@ -117,11 +117,11 @@
 	.adminInfo {
 		font-size: 20px;
 		margin-left: 5px;
-		color: var(--greenColor);
+		color: var(--positiveButtonColor);
 	}
 	.info {
 		font-size: 20px;
-		color: var(--greenColor);
+		color: var(--positiveButtonColor);
 	}
 }
 .Settings {
@@ -182,7 +182,7 @@
 		margin-bottom: 5px;
 	}
 	input {
-		color: var(--greenColor);
+		color: var(--positiveButtonColor);
 		border: none;
 		outline: none;
 		font-size: 25px;
@@ -192,12 +192,12 @@
 		outline: none;
 		border: none;
 		font-size: 25px;
-		background-color: var(--greenColor);
+		background-color: var(--positiveButtonColor);
 		cursor: pointer;
 		transition: 0.3s;
 		&:hover {
 			color: var(--textColor);
-			background-color: var(--darkGreenColor);
+			background-color: var(--positiveButtonHoverColor);
 		}
 	}
 	.message {

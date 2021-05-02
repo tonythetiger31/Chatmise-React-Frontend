@@ -1,11 +1,11 @@
 .rightContainer {
 	height: 100%;
-	width: calc(100% - 400px);
+	width: calc(100% - 310px);
 	display: block;
 	overflow-y: visible;
 	overflow-x: hidden;
 	.TopBar {
-		height: 50px;
+		height: 45px;
 		width: 100%;
 		color: var(--textColor);
 		background-color: var(--contrastingBodyColor);
@@ -14,7 +14,7 @@
 		div {
 			user-select: none;
 			display: inline;
-			font-size: 40px;
+			font-size: 35px;
 		}
 		.hamburgerButton {
 			user-select: none;
@@ -44,13 +44,13 @@
 
 			.yourMessage,.othersMessage {
 				@include message;
-				color: var(--blueColor);
+				color: var(--yourMessageColor);
             .info .time {
                color: var(--textColor);
             }
 			}
 			.othersMessage {
-				color: var(--greenTextColor);
+				color: var(--othersMessageColor);
             .info .time {
                color: var(--textColor);
             }

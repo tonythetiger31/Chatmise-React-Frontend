@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { io } from 'socket.io-client';
-
 function useRender() {
 	var isMobile =
 		window.screen.width <= 760 && window.screen.orientation.angle === 0;
@@ -87,11 +85,11 @@ function useRender() {
 	];
 }
 
-const InternetWarning = () => {
+const InternetWarning = () => (
 	<div className="InternetWarning">
 		Connection error, please check your internet
 	</div>
-};
+);
 const GrayBackground = props => (
 	<div className="GrayBackground" onClick={() => props.exitPopUp()} />
 );
@@ -119,6 +117,16 @@ function Time(props) {
 		</span>
 	);
 }
+async function getGoogleOauthToken() {
+   window.gapi.load('auth2', async() => {
+		const googleAuth = await window.gapi.auth2.init({
+			client_id:
+				'407415747373-v23ak1k7kp37k3s986mu5qh9cpqh9bdh.apps.googleusercontent.com',
+		});
+      const googleUser = googleAuth.currentUser.get();
+		return googleUser.getAuthResponse().id_token;
+   })
+}
 
 //socket
 function URL() {
@@ -128,8 +136,5 @@ function URL() {
 		return '/';
 	}
 }
-var socket = io(URL(), {
-	withCredentials: true,
-});
 
-export { useRender, socket, InternetWarning, GrayBackground, Time };
+export { useRender, InternetWarning, GrayBackground, Time, URL, getGoogleOauthToken };

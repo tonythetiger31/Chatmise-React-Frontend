@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useContext } from 'react';
-import { socket } from '../../modules';
 import validator from 'validator';
-import { DataContext } from '../../index';
+import { DataContext,socket } from '../../index';
 
 export default function CreateChat() {
 	const { toggleComponent } = React.useContext(DataContext);

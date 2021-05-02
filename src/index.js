@@ -1,7 +1,7 @@
 //dependencies
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { socket } from './modules';
+import { io } from 'socket.io-client';
 //components
 import TextsUi from './components/TextsUi.js';
 import ChatMenu from './components/ChatMenu.js';
@@ -19,13 +19,30 @@ import ping from './resources/ping.mp3';
 import * as modules from './modules.js';
 //exports
 export const DataContext = React.createContext();
-//render
-ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
-	document.getElementById('root')
-);
+var socket;
+export { socket };
+
+window.gapi.load('client:auth2', async () => {
+	const googleAuth = await window.gapi.auth2.init({
+		client_id:
+			'407415747373-v23ak1k7kp37k3s986mu5qh9cpqh9bdh.apps.googleusercontent.com',
+	});
+	const googleUser = googleAuth.currentUser.get();
+	const token = googleUser.getAuthResponse().id_token;
+	socket = io(modules.URL(), {
+		withCredentials: true,
+		query: {
+			token: token,
+		},
+	});
+
+	ReactDOM.render(
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>,
+		document.getElementById('root')
+	);
+});
 
 function App() {
 	const [appData, setAppData] = useState({
@@ -40,7 +57,7 @@ function App() {
 		],
 		chatNames: ['Loading...'],
 		chatIds: ['Loading...'],
-		username: 'Loading',
+		username: 'Loading...',
 		admins: ['Loading...'],
 		members: ['Loading...'],
 		invites: ['Loading...'],
@@ -53,17 +70,22 @@ function App() {
 		toggleComponent,
 		exitPopUp,
 	] = modules.useRender();
+	const [reload, setReload] = useState(false);
 	const [currentChat, setCurrentChat] = useState(0);
 	const [theme, setTheme] = useState(1);
 	const audio = new Audio(ping);
+	const isDevEnv = process.env.NODE_ENV === 'development';
 
-	useEffect(() => {
+	useEffect(async () => {
 		socket.on('allTexts', body => {
-			if (body !== 'invalid credentials') {
+			if (body === 500) {
+				console.log('server error');
+			} else if (body !== 'invalid credentials') {
+				setReload(true);
 				setAppData(body);
 				changeTheme(body.settings);
 			} else {
-				console.log('ERR Credentials Invalid');
+				!isDevEnv && (window.location = '/home');
 			}
 		});
 		socket.on('texts', body => {
@@ -78,7 +100,13 @@ function App() {
 				InternetWarning: true,
 				GrayBackground: true,
 			});
-			window.location.reload();
+			setReload(oldState => {
+				if (oldState === true) {
+					console.log('reload');
+					window.location.reload();
+				}
+				return oldState;
+			});
 		});
 	}, []);
 
@@ -140,53 +168,61 @@ function App() {
 	};
 	return (
 		<div className="App">
-			<DataContext.Provider
-				value={{
-					appData,
-					currentChat,
-					toggleComponent,
-					toggleHamburgerMenu,
-					render,
-				}}
-			>
-				{render.GrayBackground && (
-					<modules.GrayBackground exitPopUp={exitPopUp} />
-				)}
-				{render.Settings && (
-					<Settings changeTheme={changeTheme} theme={theme} />
-				)}
-				{render.ChatMenu && (
-					<ChatMenu
-						changeCurrentChat={arg => changeCurrentChat(arg)}
-						toggleChatMenu={toggleChatMenu}
-					/>
-				)}
-				{render.ChatInfo && <ChatInfo />}
-				{render.CreateChat && <CreateChat />}
-				{render.InviteMenu && <InviteMenu />}
-				{render.YourInvites && <YourInvites setAppData={setAppData} />}
-				{render.InternetWarning && <modules.InternetWarning />}
+			{reload && (
+				<DataContext.Provider
+					value={{
+						appData,
+						currentChat,
+						toggleComponent,
+						toggleHamburgerMenu,
+						render,
+					}}
+				>
+					{render.GrayBackground && (
+						<modules.GrayBackground exitPopUp={exitPopUp} />
+					)}
+					{render.Settings && (
+						<Settings changeTheme={changeTheme} theme={theme} />
+					)}
+					{render.ChatMenu && (
+						<ChatMenu
+							changeCurrentChat={arg => changeCurrentChat(arg)}
+							toggleChatMenu={toggleChatMenu}
+						/>
+					)}
+					{render.ChatInfo && <ChatInfo />}
+					{render.CreateChat && <CreateChat />}
+					{render.InviteMenu && <InviteMenu />}
+					{render.YourInvites && <YourInvites setAppData={setAppData} />}
+					{render.InternetWarning && <modules.InternetWarning />}
 
-				{render.RightContainer && (
-					<div className="rightContainer">
-						{render.TobBar && (
-							<TopBar
-								renHamburgerMenu={render.HamburgerMenu}
-								toggleHamburgerMenu={toggleHamburgerMenu}
-								toggleChatMenu={toggleChatMenu}
-							/>
-						)}
-						{render.HamburgerMenu && <HamburgerMenu />}
-						{render.TextUi && (
-							<TextsUi
-								sendAndDisplayMessage={arg =>
-									sendAndDisplayMessage(arg)
-								}
-							/>
-						)}
-					</div>
-				)}
-			</DataContext.Provider>
+					{render.RightContainer && (
+						<div className="rightContainer">
+							{render.TobBar && (
+								<TopBar
+									renHamburgerMenu={render.HamburgerMenu}
+									toggleHamburgerMenu={toggleHamburgerMenu}
+									toggleChatMenu={toggleChatMenu}
+								/>
+							)}
+							{render.HamburgerMenu && (
+								<HamburgerMenu
+									setReload={() => {
+										setReload();
+									}}
+								/>
+							)}
+							{render.TextUi && (
+								<TextsUi
+									sendAndDisplayMessage={arg =>
+										sendAndDisplayMessage(arg)
+									}
+								/>
+							)}
+						</div>
+					)}
+				</DataContext.Provider>
+			)}
 		</div>
 	);
 }

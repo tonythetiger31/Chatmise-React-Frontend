@@ -5,16 +5,24 @@ import { Time } from '../modules';
 
 export default function TextsUi(props) {
 	const { appData, currentChat } = useContext(DataContext);
-	const texts = appData.texts[currentChat];
-
+   var texts = appData.texts[currentChat];
+   if (!texts) {
+      texts = [
+         {
+            time: 0,
+            text: 'create a chat or ask a freind to invite you to theirs',
+            sender: 'server',
+         },
+      ]
+   }
+   
 	var textInputRef = useRef(null),
-		messageViewRef = useRef(null);
+   messageViewRef = useRef(null);
 	var oldProps = {};
-
+   
 	useEffect(() => {
 		oldProps = texts;
 		messageViewRef.current.lastChild.scrollIntoView();
-		textInputRef.current.focus();
 	}, []);
 	useEffect(() => {
 		if (texts !== oldProps && texts[0] === oldProps[0]) {
