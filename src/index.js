@@ -167,8 +167,9 @@ function App() {
 		});
 	};
 	return (
+		<>
+			{reload ? (
 		<div className="App">
-			{reload && (
 				<DataContext.Provider
 					value={{
 						appData,
@@ -221,8 +222,9 @@ function App() {
 							)}
 						</div>
 					)}
-				</DataContext.Provider>
-			)}
-		</div>
+				</DataContext.Provider></div>
+			): (<div className="loaderContainer"><div className="loader"></div></div>)}
+		
+</>
 	);
 }
