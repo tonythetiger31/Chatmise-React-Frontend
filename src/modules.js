@@ -133,7 +133,7 @@ function URL() {
 	if (process.env.NODE_ENV === 'development') {
 		return 'http://localhost:8080/';
 	} else {
-		return '/';
+		return process.env.REACT_APP_BACKEND;
 	}
 }
 

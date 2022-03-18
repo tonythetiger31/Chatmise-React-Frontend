@@ -38,7 +38,7 @@ window.gapi.load('client:auth2', async () => {
 
 	ReactDOM.render(
 		<React.StrictMode>
-			<App />
+			<App/>	
 		</React.StrictMode>,
 		document.getElementById('root')
 	);
@@ -169,62 +169,68 @@ function App() {
 	return (
 		<>
 			{reload ? (
-		<div className="App">
-				<DataContext.Provider
-					value={{
-						appData,
-						currentChat,
-						toggleComponent,
-						toggleHamburgerMenu,
-						render,
-					}}
-				>
-					{render.GrayBackground && (
-						<modules.GrayBackground exitPopUp={exitPopUp} />
-					)}
-					{render.Settings && (
-						<Settings changeTheme={changeTheme} theme={theme} />
-					)}
-					{render.ChatMenu && (
-						<ChatMenu
-							changeCurrentChat={arg => changeCurrentChat(arg)}
-							toggleChatMenu={toggleChatMenu}
-						/>
-					)}
-					{render.ChatInfo && <ChatInfo />}
-					{render.CreateChat && <CreateChat />}
-					{render.InviteMenu && <InviteMenu />}
-					{render.YourInvites && <YourInvites setAppData={setAppData} />}
-					{render.InternetWarning && <modules.InternetWarning />}
+				<div className="App">
+					<DataContext.Provider
+						value={{
+							appData,
+							currentChat,
+							toggleComponent,
+							toggleHamburgerMenu,
+							render,
+						}}
+					>
+						{render.GrayBackground && (
+							<modules.GrayBackground exitPopUp={exitPopUp} />
+						)}
+						{render.Settings && (
+							<Settings changeTheme={changeTheme} theme={theme} />
+						)}
+						{render.ChatMenu && (
+							<ChatMenu
+								changeCurrentChat={arg => changeCurrentChat(arg)}
+								toggleChatMenu={toggleChatMenu}
+							/>
+						)}
+						{render.ChatInfo && <ChatInfo />}
+						{render.CreateChat && <CreateChat />}
+						{render.InviteMenu && <InviteMenu />}
+						{render.YourInvites && (
+							<YourInvites setAppData={setAppData} />
+						)}
+						{render.InternetWarning && <modules.InternetWarning />}
 
-					{render.RightContainer && (
-						<div className="rightContainer">
-							{render.TobBar && (
-								<TopBar
-									renHamburgerMenu={render.HamburgerMenu}
-									toggleHamburgerMenu={toggleHamburgerMenu}
-									toggleChatMenu={toggleChatMenu}
-								/>
-							)}
-							{render.HamburgerMenu && (
-								<HamburgerMenu
-									setReload={() => {
-										setReload();
-									}}
-								/>
-							)}
-							{render.TextUi && (
-								<TextsUi
-									sendAndDisplayMessage={arg =>
-										sendAndDisplayMessage(arg)
-									}
-								/>
-							)}
-						</div>
-					)}
-				</DataContext.Provider></div>
-			): (<div className="loaderContainer"><div className="loader"></div></div>)}
-		
-</>
+						{render.RightContainer && (
+							<div className="rightContainer">
+								{render.TobBar && (
+									<TopBar
+										renHamburgerMenu={render.HamburgerMenu}
+										toggleHamburgerMenu={toggleHamburgerMenu}
+										toggleChatMenu={toggleChatMenu}
+									/>
+								)}
+								{render.HamburgerMenu && (
+									<HamburgerMenu
+										setReload={() => {
+											setReload();
+										}}
+									/>
+								)}
+								{render.TextUi && (
+									<TextsUi
+										sendAndDisplayMessage={arg =>
+											sendAndDisplayMessage(arg)
+										}
+									/>
+								)}
+							</div>
+						)}
+					</DataContext.Provider>
+				</div>
+			) : (
+				<div className="loaderContainer">
+					<div className="loader"></div>
+				</div>
+			)}
+		</>
 	);
 }
