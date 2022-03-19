@@ -46,7 +46,7 @@
                token: tokenId
             })
          }
-         const res = await fetch('/new-account', options)
+         const res = await fetch('https://messaging-chatmise.herokuapp.com/new-account', options)
          res.status === 400
          ? alert('only use alphaNumberic characters')
          : window.location.replace('/')
